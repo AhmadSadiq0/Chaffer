@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/standard_padding"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/cardview_shadow_end_color"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_spinner"
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        android:layout_height="wrap_content">
+
+    <Spinner
+
+        android:layout_below="@+id/time_text"
+        android:id="@+id/timer_selection_spinner"
+        android:layout_width="match_parent"
+        android:entries="@array/time_spinner_data"
+        android:layout_height="wrap_content">
+    </Spinner>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/margin_top"
+        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        android:id="@+id/card_view_description"
+        android:layout_below="@id/card_view_spinner"
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="#e7e6e6"
+        android:layout_height="wrap_content">
+
+
+
+
+    <EditText
+        android:id="@+id/editText_description"
+        android:layout_below="@+id/text_description"
+        android:layout_width="match_parent"
+        android:maxLines="5"
+        android:textColor="@color/colorAccent"
+        android:hint="Offer description here"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"/>
+
+    </android.support.v7.widget.CardView>
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/margin_top"
+        android:id="@+id/card_view_pickup_locationDescription"
+        android:layout_below="@id/card_view_description"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        app:cardBackgroundColor="@color/gray"
+        android:layout_height="wrap_content">
+
+
+
+            <EditText
+                android:id="@+id/editText_pickUP_location_description_text"
+                android:layout_below="@+id/text_location_description"
+                android:layout_width="match_parent"
+                android:textColor="@color/colorAccent"
+                android:maxLines="5"
+                android:hint="Pickup location description here"
+                android:background="@android:color/transparent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"/>
+
+    </android.support.v7.widget.CardView>
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/margin_top"
+        android:id="@+id/card_view_dropp_offlocationDescription"
+        android:layout_below="@id/card_view_pickup_locationDescription"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        app:cardBackgroundColor="@color/gray"
+        android:layout_height="wrap_content">
+
+
+
+        <EditText
+            android:id="@+id/editText_dropOff_location_description_text"
+            android:layout_below="@+id/text_location_description"
+            android:layout_width="match_parent"
+            android:textColor="@color/colorAccent"
+            android:maxLines="5"
+            android:hint="Drop off location description here"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"/>
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/margin_top"
+        android:id="@+id/card_view_item_details"
+        android:layout_below="@id/card_view_dropp_offlocationDescription"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        app:cardBackgroundColor="@color/gray"
+        android:layout_height="wrap_content">
+
+
+
+        <EditText
+            android:id="@+id/edit_text_package_description"
+            android:layout_below="@+id/text_location_description"
+            android:layout_width="match_parent"
+            android:textColor="@color/colorAccent"
+            android:maxLines="5"
+            android:hint="Package description here"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"/>
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+    <Button
+        android:id="@+id/place_offer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place offer"
+        android:layout_marginTop="@dimen/margin_top"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

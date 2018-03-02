@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/standard_padding"
+    android:background="@color/cardview_shadow_end_color">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/user_image"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:src="@mipmap/logo"
+        />
+
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="User name here"
+        android:textStyle="bold" />
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_offer_description"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_below="@+id/user_name"
+        android:layout_height="130dp">
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/offer_description_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offer description:"
+            android:textStyle="bold" />
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/offer_description_text"
+                android:layout_width="match_parent"
+                android:text="                  Offer description text here"
+                android:layout_height="match_parent" />
+
+
+
+        </ScrollView>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_pickuplocation_description"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_below="@+id/card_view_offer_description"
+        android:layout_height="100dp">
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/picklocation_des_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick up Location description:"
+                android:textStyle="bold" />
+
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/picklocation_description_text"
+                    android:layout_width="match_parent"
+                    android:text="                  Pick up description text here"
+                    android:layout_height="match_parent" />
+
+
+
+            </ScrollView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_dropofflocation_description"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_below="@+id/card_view_pickuplocation_description"
+        android:layout_height="100dp">
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dropoff_des_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drop off Location :"
+                android:textStyle="bold" />
+
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dropoff_description_text"
+                    android:layout_width="match_parent"
+                    android:text="                  Drop off description text here"
+                    android:layout_height="match_parent" />
+
+
+
+            </ScrollView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <Button
+        android:id="@+id/view_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_below="@+id/card_view_dropofflocation_description"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:text="View map" />
+
+</RelativeLayout>

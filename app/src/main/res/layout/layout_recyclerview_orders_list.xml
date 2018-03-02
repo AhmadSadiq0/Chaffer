@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/cardview_shadow_end_color"
+    android:padding="5dp"
+    android:id="@+id/parent_layout">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/user_image"
+                android:layout_width="50dp"
+                android:layout_margin="5dp"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/logo" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/user_image"
+                android:layout_marginTop="11dp"
+                android:layout_toEndOf="@+id/user_image"
+                android:layout_toRightOf="@+id/user_image"
+                android:text="User name here"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/order_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/user_name"
+                android:layout_alignStart="@+id/user_name"
+                android:layout_below="@+id/user_name"
+                android:layout_marginTop="12dp"
+                android:layout_toLeftOf="@+id/pick_up_location"
+                android:layout_toStartOf="@+id/pick_up_location"
+                android:maxLines="1"
+                android:text="Order description" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="130dp"
+                android:text="time"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/order_description"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/pick_up_location"
+                android:layout_width="130dp"
+                android:maxLines="1"
+                android:text="Pick up location"
+                android:layout_below="@+id/time"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/delivery_location"
+                android:layout_width="130dp"
+                android:maxLines="1"
+                android:text="Delivery location"
+                android:layout_below="@+id/pick_up_location"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>
