@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_shadow_end_color"
@@ -49,7 +48,7 @@
 
 
             <EditText
-                android:id="@+id/editText_pickUP_location_description_text"
+                android:id="@+id/editText_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -73,7 +72,7 @@
 
 
             <EditText
-                android:id="@+id/editText_dropOff_location_description_text"
+                android:id="@+id/editText_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"

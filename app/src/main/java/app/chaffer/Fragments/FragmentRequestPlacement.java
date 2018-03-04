@@ -46,9 +46,9 @@ public class FragmentRequestPlacement extends Fragment implements View.OnClickLi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_request_placement, container, false);
 
-        txtDescription = (EditText) view.findViewById(R.id.text_description);
-        txtTime = (EditText) view.findViewById(R.id.text_time);
-        txtAmount = (EditText) view.findViewById(R.id.text_amount);
+        txtDescription = (EditText) view.findViewById(R.id.editText_description);
+        txtTime = (EditText) view.findViewById(R.id.editText_time);
+        txtAmount = (EditText) view.findViewById(R.id.editText_amount);
 
         btnPlaceOffer = (Button) view.findViewById(R.id.place_offer);
         btnPlaceOffer.setOnClickListener(this);
@@ -59,8 +59,12 @@ public class FragmentRequestPlacement extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if (view.getId() == btnPlaceOffer.getId()) {
-            if (!txtDescription.getText().equals("") && !txtAmount.getText().equals("") && !txtTime.getText().equals("")) {
+
+//            if (!txtDescription.getText().toString().equals("") && !txtAmount.getText().toString().equals("")
+//                    && !txtTime.getText().toString().equals("")) {
                 //putting data of request in a static array list defined in Main Activity
+            boolean abc = true;
+            if(abc){
 
 
                 //Seding request
@@ -69,7 +73,7 @@ public class FragmentRequestPlacement extends Fragment implements View.OnClickLi
 
                 Map<String, String> postParam = new HashMap<String, String>();
 
-                postParam.put("fkuser_id", MainActivity.offerPlacementData.get(0));
+                postParam.put("fkuser_id", MainActivity.selectedOfferFromOfferFeed.getUserId());
                 postParam.put("fkrequest_id", MainActivity.selectedOfferFromOfferFeed.getRequestId());
                 postParam.put("description", txtDescription.getText().toString());
                 postParam.put("time_suggested", txtTime.getText().toString());
@@ -77,8 +81,8 @@ public class FragmentRequestPlacement extends Fragment implements View.OnClickLi
 
 
 //                For testing purpose only
-//                JSONObject jsonObject=new JSONObject(postParam) ;
-//                Log.d("obj",jsonObject.toString()) ;
+                JSONObject jsonObject=new JSONObject(postParam) ;
+                Log.d("obj",jsonObject.toString()) ;
 
 
                 JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url
