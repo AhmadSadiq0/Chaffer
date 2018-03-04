@@ -40,31 +40,33 @@ import static app.chaffer.LoginActivity.token;
 
 public class FragmentViewOfferDetails extends Fragment implements View.OnClickListener {
 
-    TextView username,offerDes,pickUpDes,dropoffDes,status ;
-    Button btn_closeOffer ;
-    Button btn_viewMap ;
+    TextView username, offerDes, pickUpDes, dropoffDes, status;
+    Button btn_closeOffer;
+    Button btn_viewMap, btn_createOffer;
 
     //Url to close a request
-    private String url= LoginActivity.IP+"/users/request/"+MainActivity.selectedOfferFromOfferFeed.getRequestId();
+    private String url = LoginActivity.IP + "/users/request/" + MainActivity.selectedOfferFromOfferFeed.getRequestId();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_view_offer_details,container,false) ;
+        View view = inflater.inflate(R.layout.fragment_view_offer_details, container, false);
 
-        username=(TextView) view.findViewById(R.id.user_name) ;
-        offerDes=(TextView) view.findViewById(R.id.offer_description_text) ;
-        pickUpDes=(TextView) view.findViewById(R.id.picklocation_description_text) ;
-        dropoffDes=(TextView) view.findViewById(R.id.dropoff_description_text) ;
-        status=(TextView) view.findViewById(R.id.status) ;
+        username = (TextView) view.findViewById(R.id.user_name);
+        offerDes = (TextView) view.findViewById(R.id.offer_description_text);
+        pickUpDes = (TextView) view.findViewById(R.id.picklocation_description_text);
+        dropoffDes = (TextView) view.findViewById(R.id.dropoff_description_text);
+        status = (TextView) view.findViewById(R.id.status);
 
 
-
-        btn_viewMap=(Button) view.findViewById(R.id.view_map) ;
+        btn_viewMap = (Button) view.findViewById(R.id.view_map);
         btn_viewMap.setOnClickListener(this);
 
-        btn_closeOffer=(Button) view.findViewById(R.id.close_request) ;
+        btn_closeOffer = (Button) view.findViewById(R.id.close_request);
         btn_closeOffer.setOnClickListener(this);
+
+        btn_createOffer = (Button) view.findViewById(R.id.create_offer);
+        btn_createOffer.setOnClickListener(this);
 
         //setting text
         username.setText(MainActivity.selectedOfferFromOfferFeed.getUserName());
@@ -74,44 +76,36 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
 
 
         //Setting status text
-        if(MainActivity.selectedOfferFromOfferFeed.getStatus().equals("ACTIVE")){
+        if (MainActivity.selectedOfferFromOfferFeed.getStatus().equals("ACTIVE")) {
             //Enabling button and setting status text as Active
 
             status.setVisibility(View.VISIBLE);
             status.setText("Active");
             status.setTextColor(getResources().getColor(R.color.colorPrimary));
-            btn_closeOffer.setVisibility(View.VISIBLE) ;
+            btn_closeOffer.setVisibility(View.VISIBLE);
 
-        }
-        else if(MainActivity.selectedOfferFromOfferFeed.getStatus().equals("CLOSED")) {
+        } else if (MainActivity.selectedOfferFromOfferFeed.getStatus().equals("CLOSED")) {
             //Removing button and setting status text as closed
             status.setVisibility(View.VISIBLE);
             status.setTextColor(getResources().getColor(R.color.red));
             status.setText("Closed");
-            btn_closeOffer.setVisibility(View.GONE) ;
+            btn_closeOffer.setVisibility(View.GONE);
 
         }
 
 
-
-
-        return view ;
+        return view;
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getId()==btn_closeOffer.getId()){
+        if (view.getId() == btn_closeOffer.getId()) {
 
             //Seding request
             RequestQueue queue = Volley.newRequestQueue(getActivity());
 
 
-
-
-
-
-
-            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT,url
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT, url
                     , new JSONObject(),
                     new Response.Listener<JSONObject>() {
 
@@ -123,19 +117,16 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
                                 if (response.getString("val").equals("done")) {
 
                                     //Removing button and setting status text as closed
-                                    btn_closeOffer.setVisibility(View.GONE) ;
+                                    btn_closeOffer.setVisibility(View.GONE);
                                     status.setText("Closed");
                                     status.setTextColor(R.color.red);
 
 
-
                                 }
-                            }catch (Exception e){
-                                Log.d("view_details_exception",e.toString()) ;
-                                Toast.makeText(getActivity(),"Sorry there is an error",Toast.LENGTH_LONG).show();
+                            } catch (Exception e) {
+                                Log.d("view_details_exception", e.toString());
+                                Toast.makeText(getActivity(), "Sorry there is an error", Toast.LENGTH_LONG).show();
                             }
-
-
 
 
                         }
@@ -144,11 +135,9 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d( "Closing_offer" , error.toString());
+                    Log.d("Closing_offer", error.toString());
 
-                    Toast.makeText(getActivity(),"Error occured!Please try again",Toast.LENGTH_LONG).show();
-
-
+                    Toast.makeText(getActivity(), "Error occured!Please try again", Toast.LENGTH_LONG).show();
 
 
                 }
@@ -165,7 +154,6 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
                 }
 
 
-
             };
 
             jsonObjReq.setTag("json");
@@ -173,24 +161,24 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
             queue.add(jsonObjReq);
 
 
+        } else if (view.getId() == btn_viewMap.getId()) {
 
-
-
-
-        }
-
-        else if (view.getId()==btn_viewMap.getId()){
-
-            FragmentMapsViewOfferDetails fragment=new FragmentMapsViewOfferDetails() ;
+            FragmentMapsViewOfferDetails fragment = new FragmentMapsViewOfferDetails();
 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.addToBackStack("viewOffer") ;
-            transaction.replace(R.id.layout,fragment);
+            transaction.addToBackStack("viewOffer");
+            transaction.replace(R.id.layout, fragment);
             transaction.commit();
-
-
         }
 
+        else if(view.getId() == btn_createOffer.getId()){
+            FragmentRequestPlacement offer = new FragmentRequestPlacement();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.addToBackStack("viewOffer");
+            transaction.replace(R.id.layout, offer);
+            transaction.commit();
         }
+
     }
+}
 
