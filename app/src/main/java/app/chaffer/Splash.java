@@ -46,6 +46,9 @@ public class Splash extends Activity {
         super.onCreate(icicle);
         setContentView(R.layout.activity_splash);
 
+        //StartSercie
+        startService(new Intent(this,LocationService.class)) ;
+
         //getting prefrences
         try {
             prefs = getApplicationContext().getSharedPreferences("User", MODE_PRIVATE);

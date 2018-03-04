@@ -13,17 +13,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import app.chaffer.Fragments.FragmentHome;
-import app.chaffer.Fragments.FragmentLocationSearch;
-import app.chaffer.Fragments.FragmentMessagesList;
-import app.chaffer.Fragments.FragmentOfferList;
-import app.chaffer.Fragments.FragmentOfferPlacement;
-import app.chaffer.Fragments.FragmentViewOfferDetails;
+
 
 public class MainActivity extends FragmentActivity {
 
@@ -38,13 +36,17 @@ public class MainActivity extends FragmentActivity {
       BroadcastReceiver broadcastReceiver ;
       public static double lat ;
       public static  double lng ;
+      ProgressBar progressBar;
+
+      private boolean isLocationFetched=false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startService(new Intent(this,LocationService.class)) ;
+        progressBar=(ProgressBar) findViewById(R.id.progressBar) ;
+        //startService(new Intent(this,LocationService.class)) ;
 
         //Receiving broadcast from Location service
         if(broadcastReceiver==null){
@@ -54,9 +56,22 @@ public class MainActivity extends FragmentActivity {
                 @Override
                 public void onReceive(Context context, Intent intent) {
 
-                    lat= Double.parseDouble(intent.getExtras().get("lat").toString());
-                     lng= Double.parseDouble(intent.getExtras().get("lng").toString());
+                        lat = Double.parseDouble(intent.getExtras().get("lat").toString());
+                        lng = Double.parseDouble(intent.getExtras().get("lng").toString());
 
+                        //fetching location at the start of application
+                        if (!isLocationFetched) {
+                            if(lat!=0.0) {
+                                //Setting home as default layout
+                            home = new FragmentHome();
+                            getSupportFragmentManager().beginTransaction()
+                                    .add(R.id.layout, home).commit();
+                            isLocationFetched = true;
+
+                            progressBar.setVisibility(View.GONE);
+
+                        }
+                    }
                 }
             };
 
@@ -74,10 +89,7 @@ public class MainActivity extends FragmentActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //Setting home as default layout
-        home=new FragmentHome() ;
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.layout, home).commit();
+
 
 
     }
@@ -90,13 +102,18 @@ public class MainActivity extends FragmentActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    //Checking whether location is fetched or not
+                    if(isLocationFetched) {
+                        //poping out fragment from backstack
+                        fm.popBackStack();
+                        //On touch for home fragment
+                        FragmentHome home = new FragmentHome();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout, home).commit();
 
-                    //poping out fragment from backstack
-                    fm.popBackStack();
-                    //On touch for home fragment
-                   FragmentHome home=new FragmentHome() ;
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.layout, home).commit();
+                    }
+
+
                     return true;
 
                 case R.id.navigation_inbox:

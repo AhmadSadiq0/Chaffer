@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
     private  TextView routeText,distanceText,timeText ;
     private LinearLayout details_layout ;
+    private ProgressBar progressBar ;
 //    double currentLat;
 //    double currentLng;
 //    LatLng current;
@@ -79,6 +81,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
         distanceText=(TextView) view.findViewById(R.id.distance) ;
         timeText=(TextView) view.findViewById(R.id.time) ;
         details_layout=(LinearLayout) view.findViewById(R.id.details_layout) ;
+        progressBar=(ProgressBar) view.findViewById(R.id.progressBar) ;
 
         polylines = new ArrayList<>();
 
@@ -135,7 +138,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
             //getting route
 
-            getRoutToMarker(new LatLng(MainActivity.lat,MainActivity.lng),delivery);
+            getRoutToMarker(new LatLng(MainActivity.lat,MainActivity.lng),pickUP,delivery);
 
 
 
@@ -146,19 +149,17 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
 
 
-    private void getRoutToMarker(LatLng start,LatLng end)  {
+    private void getRoutToMarker(LatLng start,LatLng mid,LatLng end)  {
 
-        if(start.latitude!=0.0) {
 
             Routing routing = new Routing.Builder().
                     travelMode(AbstractRouting.TravelMode.DRIVING).
-                    withListener(this).alternativeRoutes(true).waypoints(start, end).build();
+                    withListener(this).alternativeRoutes(true).waypoints(start,mid, end).build();
 
             routing.execute();
 
-        }else {
-            getRoutToMarker(start,end);
-        }
+
+        
 
 
 
@@ -200,6 +201,10 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
             polylines.add(polyline);
 
             Toast.makeText(getActivity(), "Route " + (i + 1) + ": distance - " + route.get(i).getDistanceValue() + ": duration - " + route.get(i).getDurationValue(), Toast.LENGTH_SHORT).show();
+
+
+            //disabling progress bar
+            progressBar.setVisibility(View.GONE);
 
             //setting route details
             details_layout.setVisibility(View.VISIBLE) ;

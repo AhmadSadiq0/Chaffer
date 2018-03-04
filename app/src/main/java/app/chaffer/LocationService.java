@@ -55,7 +55,7 @@ public class LocationService extends Service {
         }
         locationManager.requestLocationUpdates(
 
-                LocationManager.NETWORK_PROVIDER, 3000, 0,
+                LocationManager.NETWORK_PROVIDER, 1000, 0,
                 new LocationListener() {
                     @Override
                     public void onLocationChanged(android.location.Location location) {
