@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_shadow_end_color"
+    android:padding="@dimen/standard_padding"
+    tools:context="app.chaffer.Fragments.FragmentRequestPlacement">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_view_spinner"
+            android:layout_marginTop="@dimen/margin_top"
+            app:cardBackgroundColor="#e7e6e6"
+            app:cardCornerRadius="@dimen/cardview_corner_radius">
+
+
+            <EditText
+                android:id="@+id/editText_description"
+                android:layout_width="match_parent"
+                android:layout_height="300px"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_description"
+                android:background="@android:color/transparent"
+                android:hint="Describe your offer."
+                android:maxLines="5"
+                android:textColor="@color/colorAccent" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view_pickup_locationDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_view_description"
+            android:layout_marginTop="@dimen/margin_top"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="@dimen/cardview_corner_radius">
+
+
+            <EditText
+                android:id="@+id/editText_pickUP_location_description_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_time"
+                android:background="@android:color/transparent"
+                android:hint="Time to deliver"
+                android:maxLines="5"
+                android:textColor="@color/colorAccent" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view_dropp_offlocationDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_view_pickup_locationDescription"
+            android:layout_marginTop="@dimen/margin_top"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="@dimen/cardview_corner_radius">
+
+
+            <EditText
+                android:id="@+id/editText_dropOff_location_description_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_amount"
+                android:background="@android:color/transparent"
+                android:hint="Amount"
+                android:maxLines="5"
+                android:textColor="@color/colorAccent" />
+
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/place_offer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/colorPrimary"
+        android:text="Place offer"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>
