@@ -316,7 +316,7 @@ public class FragmentOfferPlacement extends Fragment implements OnMapReadyCallba
                 MainActivity.offerPlacementData.add(1,""+packagePickupLocation.latitude) ;
                 MainActivity.offerPlacementData.add(2,""+packagePickupLocation.longitude) ;
                 MainActivity.offerPlacementData.add(3,""+packageDropOffLocation.latitude) ;
-                MainActivity.offerPlacementData.add(4,""+packageDropOffLocation.latitude) ;
+                MainActivity.offerPlacementData.add(4,""+packageDropOffLocation.longitude) ;
 
 
 

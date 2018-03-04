@@ -52,7 +52,7 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by Mac on 03/03/2018.
  */
 
-public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReadyCallback, RoutingListener, GoogleMap.OnMarkerClickListener {
+public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReadyCallback, RoutingListener {
     private GoogleMap mMap;
     LatLng pickUP;
     LatLng delivery;
@@ -112,7 +112,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
         //Pickup lat long
         Double pickUplat=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getPickUplatitude()) ;
-        Double pickUplon=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getDeliverLongitude()) ;
+        Double pickUplon=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getPickUplongitude()) ;
 
         //Delivery lat long
         Double deliverylat=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getDeliverLatitude()) ;
@@ -128,6 +128,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
         //Delivery marker
 
         delivery= new LatLng(deliverylat,deliverylon);
+        Log.d("deliver",delivery.latitude +" "+delivery.longitude) ;
         deliveryMarker=new MarkerOptions() ;
         deliveryMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mMap.addMarker(deliveryMarker.position(delivery).title("Drop off : "+MainActivity.selectedOfferFromOfferFeed.getDrofOffLocationDescription() ));
@@ -148,6 +149,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
 
 
+    //method to draw route
 
     private void getRoutToMarker(LatLng start,LatLng mid,LatLng end)  {
 
@@ -159,11 +161,13 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
             routing.execute();
 
 
-        
+
 
 
 
     }
+
+    //Methods to handle routes success and failure etc
 
     @Override
     public void onRoutingFailure(RouteException e) {
@@ -222,11 +226,5 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
     }
 
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(getActivity(),
-                "Marker Clicked: " + marker.getTitle(), Toast.LENGTH_LONG)
-                .show();
-        return false;
-    }
+
 }
