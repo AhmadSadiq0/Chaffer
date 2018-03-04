@@ -2,8 +2,18 @@ package app.chaffer.Fragments;
 
 
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
 import android.support.v7.widget.DefaultItemAnimator;
@@ -54,10 +64,19 @@ public class FragmentLocationSearch extends Fragment implements View.OnClickList
 
     LocationListAdapter adapter ;
 
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location_search, container, false);
+
+
+
+
+
+
 
 
         searchbar = view.findViewById(R.id.editText_enterLocation_text);

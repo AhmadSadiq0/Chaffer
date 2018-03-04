@@ -2,8 +2,13 @@ package app.chaffer.Fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -58,6 +63,7 @@ public class FragmentOfferPlacement extends Fragment implements OnMapReadyCallba
     EditText enterLocation ;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,6 +106,16 @@ public class FragmentOfferPlacement extends Fragment implements OnMapReadyCallba
         //Pick up location
         Toast.makeText(getActivity(),"Long press on pickup location to set a marker",Toast.LENGTH_LONG).show();
 
+
+
+
+
+
+
+
+
+
+
         return view;
     }
 
@@ -124,6 +140,9 @@ public class FragmentOfferPlacement extends Fragment implements OnMapReadyCallba
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},500);
 
         }
+
+
+
         mMap.setMyLocationEnabled(true);
 
 
@@ -206,10 +225,15 @@ public class FragmentOfferPlacement extends Fragment implements OnMapReadyCallba
         } );
 
 
+
         // Add a marker in Sydney and move the camera
-       LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//       LatLng sydney = new LatLng(MainActivity.currentLat, MainActivity.currentLng);
+//
+//         Log.d("latP",""+sydney.latitude) ;
+//        Log.d("latP",""+sydney.longitude) ;
+//
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
 

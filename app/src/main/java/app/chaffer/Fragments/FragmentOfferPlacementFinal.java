@@ -2,9 +2,13 @@ package app.chaffer.Fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -68,8 +72,7 @@ public class FragmentOfferPlacementFinal extends Fragment implements View.OnClic
 
 
 
-
-         offerDescription=(EditText)view.findViewById(R.id.editText_description) ;
+        offerDescription=(EditText)view.findViewById(R.id.editText_description) ;
          pickUplocationDescription=(EditText)view.findViewById(R.id.editText_pickUP_location_description_text) ;
          dropOffLocationDescription=(EditText)view.findViewById(R.id.editText_dropOff_location_description_text) ;
          packageDescription=(EditText)view.findViewById(R.id.edit_text_package_description) ;

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include
+        android:layout_above="@+id/card_view_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/activity_maps"/>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_route_details"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/details_layout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/route"
+                android:text="2"
+                android:textSize="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/distance"
+                android:text="2"
+                android:textSize="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:text="2"
+                android:textSize="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

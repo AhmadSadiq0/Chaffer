@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText loginText ;
     EditText passwordText ;
     TextView createAccount ;
-    public static String IP="http://192.168.0.128:3000" ;
+    public static String IP="http://192.168.0.114:3000" ;
     private String loginUrl=IP+"/users/signin" ;
     ProgressBar progressBar ;
 

@@ -136,14 +136,14 @@ public class Offer {
 
 
 
-    public Offer(String userId, String requestId, String userName, String offerDescription, String timeToDeliver, String pickUplongitude, String pickUplatitude, String deliverLongitude, String deliverLatitude, String pickUpLocationDescription, String drofOffLocationDescription, String packageDesription, String status) {
+    public Offer(String userId, String requestId, String userName, String offerDescription, String timeToDeliver, String pickUplatitude,String pickUplongitude,  String deliverLatitude, String deliverLongitude, String pickUpLocationDescription, String drofOffLocationDescription, String packageDesription, String status) {
         this.userId = userId;
         this.requestId = requestId;
         this.userName = userName;
         this.offerDescription = offerDescription;
         this.timeToDeliver = timeToDeliver;
-        this.pickUplongitude = pickUplongitude;
         this.pickUplatitude = pickUplatitude;
+        this.pickUplongitude = pickUplongitude;
         this.deliverLongitude = deliverLongitude;
         this.deliverLatitude = deliverLatitude;
         this.pickUpLocationDescription = pickUpLocationDescription;

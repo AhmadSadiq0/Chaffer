@@ -1,16 +1,10 @@
 package app.chaffer.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,11 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.FileDescriptor;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import app.chaffer.Fragments.FragmentViewOfferDetails;
@@ -36,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Mac on 12/02/2018.
  */
 
-public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyViewHolder> {
+public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderListAdapter.MyViewHolder> {
 
     private List<Offer> offerList;
     private Context context ;
@@ -67,14 +58,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_recyclerview_orders_list, parent, false);
+                .inflate(R.layout.layout_recyclerview_posted_orders_list, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
 
 
-    public OrderListAdapter(Context context,List<Offer> offerList,FragmentTransaction fm) {
+    public PostedOrderListAdapter(Context context, List<Offer> offerList, FragmentTransaction fm) {
 
         this.offerList = offerList;
 
@@ -89,7 +80,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
 
     @Override
-    public void onBindViewHolder(OrderListAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(PostedOrderListAdapter.MyViewHolder holder, final int position) {
 
                 final Offer currentOffer = offerList.get(position) ;
                 holder.userName.setText(""+currentOffer.getUserName());

@@ -6,6 +6,15 @@
     android:background="@color/cardview_shadow_end_color">
 
 
+    <TextView
+        android:id="@+id/status"
+        android:textColor="@color/colorPrimary"
+        android:text="Status"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/user_image"
         android:layout_width="wrap_content"
@@ -155,9 +164,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
-        android:layout_below="@+id/card_view_dropofflocation_description"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
         android:text="View map" />
+
+
+    <Button
+        android:id="@+id/close_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close "
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

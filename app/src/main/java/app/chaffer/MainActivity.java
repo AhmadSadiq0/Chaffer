@@ -1,13 +1,17 @@
 package app.chaffer;
 
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,14 +27,60 @@ import app.chaffer.Fragments.FragmentViewOfferDetails;
 
 public class MainActivity extends FragmentActivity {
 
+
     private TextView mTextMessage;
     private  FragmentHome home;
     public static ArrayList<String> offerPlacementData=new ArrayList<>() ;
     public static Offer selectedOfferFromOfferFeed ;
-    //public static int currentOfferfeedItemSelected ;
 
-//    public  Context context=getApplicationContext() ;
+    FragmentManager fm =this.getSupportFragmentManager() ;
 
+      BroadcastReceiver broadcastReceiver ;
+      public static double lat ;
+      public static  double lng ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        startService(new Intent(this,LocationService.class)) ;
+
+        //Receiving broadcast from Location service
+        if(broadcastReceiver==null){
+
+
+            broadcastReceiver=new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+
+                    lat= Double.parseDouble(intent.getExtras().get("lat").toString());
+                     lng= Double.parseDouble(intent.getExtras().get("lng").toString());
+
+                }
+            };
+
+        } registerReceiver(broadcastReceiver,new IntentFilter("location_update")) ;
+
+
+
+
+        Log.d("latlngM",lat+" "+lng ) ;
+
+
+
+
+        mTextMessage = (TextView) findViewById(R.id.message);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //Setting home as default layout
+        home=new FragmentHome() ;
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.layout, home).commit();
+
+
+    }
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -40,6 +90,9 @@ public class MainActivity extends FragmentActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+
+                    //poping out fragment from backstack
+                    fm.popBackStack();
                     //On touch for home fragment
                    FragmentHome home=new FragmentHome() ;
                     getSupportFragmentManager().beginTransaction()
@@ -65,26 +118,10 @@ public class MainActivity extends FragmentActivity {
                     return true;
             }
             return false;
+
+
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        //Setting home as default layout
-        home=new FragmentHome() ;
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.layout, home).addToBackStack("home").commit();
-
-
-    }
-
 
 
 

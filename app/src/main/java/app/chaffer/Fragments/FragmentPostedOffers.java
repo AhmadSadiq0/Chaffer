@@ -3,7 +3,6 @@ package app.chaffer.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +19,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -32,42 +30,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.chaffer.LoginActivity;
-import app.chaffer.MainActivity;
 import app.chaffer.Offer;
 import app.chaffer.R;
 import app.chaffer.adapter.OrderListAdapter;
+import app.chaffer.adapter.PostedOrderListAdapter;
 
 import static app.chaffer.LoginActivity.token;
 
 /**
- * Created by Mac on 12/02/2018.
+ * Created by Mac on 02/03/2018.
  */
 
-public class FragmentOfferList extends Fragment {
+public class FragmentPostedOffers extends Fragment {
 
-
-    OrderListAdapter adapter ;
+    //Using order list adapter as both have same data
+    PostedOrderListAdapter adapter ;
     RecyclerView recyclerView ;
     ProgressBar progressBar ;
-
     ArrayList<Offer> offerArrayList=new ArrayList<>() ;
-
-    private String url= LoginActivity.IP+"/users/request" ;
-
+    private String url= LoginActivity.IP+"/users/myrequest" ;
     FragmentTransaction fm ;
 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_posted_offers_list,container,false) ;
 
-        View view= inflater.inflate(R.layout.fragment_offer_list,container,false) ;
-        //Fetching data from server
-        prepareData();
 
-        recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView_offerList) ;
+
+
+
+        recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView_posted_offerList) ;
         progressBar=(ProgressBar) view.findViewById(R.id.progressBar) ;
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -75,20 +70,28 @@ public class FragmentOfferList extends Fragment {
         fm=getFragmentManager().beginTransaction() ;
 
 
-        return view;
 
+        prepareData();
+
+
+
+        return view ;
     }
+
+
 
 
 
     //Prepare data to fetch
     void prepareData(){
 
+        progressBar.setVisibility(View.VISIBLE);
 
 
 
         //Seding request
         RequestQueue queue = Volley.newRequestQueue(getActivity());
+
 
 
 
@@ -108,7 +111,7 @@ public class FragmentOfferList extends Fragment {
                             //Cleaning the array
                             offerArrayList.clear();
 
-                            JSONArray array = new JSONArray(response.getString("reqAll"));
+                            JSONArray array = new JSONArray(response.getString("myReq"));
                             {
                                 JSONArray offersArray=array.getJSONArray(0) ;
 
@@ -121,18 +124,15 @@ public class FragmentOfferList extends Fragment {
 
                                     Log.d("response_offerList",obj.toString()) ;
 
-                                    //As we are using same view details fragment for All offers and user's posted offer that's status is of no importance here and i have
-                                    //set it to empty where same status will be used in PostedOffer fragment.
-
                                     Offer offer=new Offer(obj.getString("fkuser_id"),obj.getString("request_id"),obj.getString("name"),
                                             obj.getString("description"),obj.getString("time_to_deliver"),obj.getString("loc_lat"),obj.getString("loc_long"),
                                             obj.getString("des_lat"),obj.getString("des_long"),obj.getString("pickup_des"),obj.getString("dropoff_des"),
-                                            obj.getString("pkg_des") ,"") ;
+                                            obj.getString("pkg_des") ,obj.getString("status")) ;
 
 
 
 
-                                  //  Log.d("des",obj.getString("description")) ;
+                                    //  Log.d("des",obj.getString("description")) ;
 
 
                                     offerArrayList.add(offer) ;
@@ -142,7 +142,7 @@ public class FragmentOfferList extends Fragment {
                                 Toast.makeText(getActivity(), "Data fetched", Toast.LENGTH_LONG).show();
 
                                 //Fetching data and setting adapter
-                                adapter=new OrderListAdapter(getActivity(),offerArrayList,fm) ;
+                                adapter=new PostedOrderListAdapter(getActivity(),offerArrayList,fm) ;
                                 recyclerView.setAdapter(adapter);
 
 
@@ -151,7 +151,7 @@ public class FragmentOfferList extends Fragment {
                         }catch (Exception e){
 //                             Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
 
-                             Log.d( "Error_offerlist" , e.toString());
+                            Log.d( "Error_Postedofferlist" , e.toString());
 
                         }
 
@@ -165,7 +165,7 @@ public class FragmentOfferList extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d( "Error_offerlist" , error.toString());
+                Log.d( "Error_Postedofferlist" , error.toString());
 
                 Toast.makeText(getActivity(),"Error occured!Please try again",Toast.LENGTH_LONG).show();
 
