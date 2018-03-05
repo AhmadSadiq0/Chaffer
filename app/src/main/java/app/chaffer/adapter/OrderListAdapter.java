@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import app.chaffer.Fragments.FragmentViewOfferDetails;
+import app.chaffer.LoginActivity;
 import app.chaffer.MainActivity;
 import app.chaffer.Offer;
 import app.chaffer.R;
@@ -45,9 +46,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView userName, orderDescription,pickUpLocation,deliveryLocation,time;
-        public CircleImageView orderPlacerImage ;
-        RelativeLayout parentlayout ;
+         TextView userName, orderDescription,pickUpLocation,deliveryLocation,time;
+         CircleImageView orderPlacerImage ;
+         RelativeLayout parentlayout ;
+         ImageView userRequest ;
 
         public MyViewHolder(View view) {
             super(view);
@@ -59,7 +61,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
             pickUpLocation = (TextView) view.findViewById(R.id.pick_up_location);
             deliveryLocation = (TextView) view.findViewById(R.id.delivery_location);
             time = (TextView) view.findViewById(R.id.time);
-
+            userRequest=(ImageView)view.findViewById(R.id.isUser_request) ;
             orderPlacerImage = (CircleImageView) view.findViewById(R.id.user_image);
         }
     }
@@ -89,14 +91,25 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
 
     @Override
-    public void onBindViewHolder(OrderListAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final OrderListAdapter.MyViewHolder holder, final int position) {
 
                 final Offer currentOffer = offerList.get(position) ;
+
+
+                MainActivity.selectedOfferFromOfferFeed=currentOffer ;
+
                 holder.userName.setText(""+currentOffer.getUserName());
                 holder.orderDescription.setText(""+currentOffer.getOfferDescription());
                 holder.pickUpLocation.setText(""+currentOffer.getPickUpLocationDescription());
                 holder.deliveryLocation.setText(""+currentOffer.getDrofOffLocationDescription());
                 holder.time.setText(""+currentOffer.getTimeToDeliver());
+
+            //changing image of user's own request to red
+
+        if (currentOffer.getUserId().equals(LoginActivity.userId)){
+                    holder.userRequest.setBackgroundResource(R.mipmap.red);
+
+                }
 
         new DownloadImageTask(holder.orderPlacerImage).execute("https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png") ;
 
@@ -107,22 +120,28 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
                 MainActivity.selectedOfferFromOfferFeed=currentOffer ;
 
+                //check wethter it's users own request or not
+                if (currentOffer.getUserId().equals(LoginActivity.userId
+                ))
+                {
 
-               // Toast.makeText(context,MainActivity.selectedOfferFromOfferFeed.getUserName(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"This is your offer",Toast.LENGTH_LONG).show();
 
-                //Channging fragment
-                FragmentViewOfferDetails offerDetails = new FragmentViewOfferDetails();
+                }else{
+                    //Channging fragment
+                    FragmentViewOfferDetails offerDetails = new FragmentViewOfferDetails();
 
-                fm.replace(R.id.layout,offerDetails) ;
-                fm.addToBackStack("offerList") ;
-                fm.commit();
+                    fm.replace(R.id.layout, offerDetails);
+                    fm.addToBackStack("offerList");
+                    fm.commit();
 
-                //Create a bundle to pass data, add data, set the bundle to your fragment and:
-
+                    //Create a bundle to pass data, add data, set the bundle to your fragment and:
+                }
 
 
             }
         });
+
 
     }
 
