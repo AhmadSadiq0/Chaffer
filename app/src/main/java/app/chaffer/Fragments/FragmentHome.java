@@ -58,7 +58,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
 
         }else if(view.getId()==btnViewOffer.getId()){
 
-            FragmentOfferList offerList=new FragmentOfferList() ;
+            FragmentRequestList offerList=new FragmentRequestList() ;
             transaction.replace(R.id.layout,offerList) ;
             transaction.addToBackStack("home") ;
             transaction.commit() ;
@@ -66,7 +66,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
 
         }
         else if(view.getId()==viewPostedOffers.getId()){
-            FragmentPostedOffers postedOffers=new FragmentPostedOffers() ;
+            FragmentPostedRequest postedOffers=new FragmentPostedRequest() ;
             transaction.replace(R.id.layout,postedOffers) ;
             transaction.addToBackStack("home") ;
             transaction.commit() ;

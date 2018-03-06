@@ -39,7 +39,7 @@ import static app.chaffer.LoginActivity.token;
  * Created by Mac on 02/03/2018.
  */
 
-public class FragmentPostedOffers extends Fragment {
+public class FragmentPostedRequest extends Fragment {
 
     //Using order list adapter as both have same data
     PostedOrderListAdapter adapter ;

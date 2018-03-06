@@ -40,14 +40,11 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
     private double userCurrentLat ;
     private double userCurrentLong ;
 
-    private LatLng packagePickupLocation ;
-    private LatLng packageDropOffLocation ;
 
     private  MarkerOptions pickupMarker=null ;
     private  MarkerOptions deliverMarker=null ;
 
-    private boolean isPickupLocationMarked=false ;
-    private boolean isDeliveryLocationMarked=false ;
+
 
     private Button removeMaker ;
     private Button pickUpPoint ;
@@ -66,6 +63,7 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
         View view = inflater.inflate(R.layout.fragment_request_placement, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
         //getting prefrences
         prefs = getActivity().getSharedPreferences("User", MODE_PRIVATE);
@@ -91,7 +89,7 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
 
                 FragmentLocationSearch locationSearch = new FragmentLocationSearch();
-                changeToSecondFragment(locationSearch);
+                changeToSecondFragment(locationSearch,false);
 
                 return false ;
             }
@@ -107,25 +105,12 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
 
 
-
-
-
-
         return view;
     }
 
 
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -139,6 +124,28 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
 
         mMap.setMyLocationEnabled(true);
+
+
+        //Setting markers if latlng exists
+
+        if (MainActivity.requestPickupLatLng!=null) {
+
+            pickupMarker = new MarkerOptions();
+            pickupMarker.title("Pick up location: \n"+MainActivity.requestPickupLatLng.latitude+" "+MainActivity.requestPickupLatLng.longitude) ;
+            pickupMarker.position(MainActivity.requestPickupLatLng);
+            mMap.addMarker(pickupMarker) ;
+
+
+            Toast.makeText(getActivity(),"Long press on Delivery location to set a marker",Toast.LENGTH_LONG).show();
+
+
+        } if (MainActivity.requestDeliveryLatLng!=null) {
+                deliverMarker = new MarkerOptions();
+                deliverMarker.position(MainActivity.requestDeliveryLatLng);
+                deliverMarker.title("Delivery location: " + MainActivity.requestDeliveryLatLng.latitude + " " + MainActivity.requestDeliveryLatLng.longitude);
+                deliverMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                mMap.addMarker(deliverMarker);
+            }
 
 
 
@@ -161,9 +168,11 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
                 }
 
+
 //                LatLng initialLocation = new LatLng(userCurrentLat, userCurrentLong);
 //                mMap.addMarker(new MarkerOptions().position(initialLocation).title("Your initial  location"));
 
+                //Focusing to current location
 
 
                 return false;
@@ -182,31 +191,34 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
             public void onMapLongClick(LatLng latLng) {
 
 
-                if (!isPickupLocationMarked) {
+                //Setting lat lng from search location bar using static variables
+
+
+                if (MainActivity.requestPickupLatLng==null) {
 
                     pickupMarker = new MarkerOptions();
-                    packagePickupLocation = latLng;
-                    pickupMarker.title("Pick up location: \n"+latLng.latitude+" "+latLng.longitude) ;
-                    pickupMarker.position(packagePickupLocation);
+                    MainActivity.requestPickupLatLng = latLng;
+                    pickupMarker.title("Pick up location: \n"+MainActivity.requestPickupLatLng.latitude+" "+MainActivity.requestPickupLatLng.longitude) ;
+                    pickupMarker.position(MainActivity.requestPickupLatLng);
                     mMap.addMarker(pickupMarker) ;
-                    isPickupLocationMarked=true ;
 
 
                     Toast.makeText(getActivity(),"Long press on Delivery location to set a marker",Toast.LENGTH_LONG).show();
 
 
-                }else{
-                    if (!isDeliveryLocationMarked) {
+                }else
+                    if (MainActivity.requestDeliveryLatLng==null) {
                         deliverMarker = new MarkerOptions();
-                        packageDropOffLocation = latLng;
+                        MainActivity.requestDeliveryLatLng = latLng;
 
 
-                        deliverMarker.position(packageDropOffLocation);
-                        deliverMarker.title("Delivery location: " + latLng.latitude + " " + latLng.longitude);
+                        deliverMarker.position(MainActivity.requestDeliveryLatLng);
+                        deliverMarker.title("Delivery location: " + MainActivity.requestDeliveryLatLng.latitude + " " + MainActivity.requestDeliveryLatLng.longitude);
                         deliverMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                         mMap.addMarker(deliverMarker);
-                        isDeliveryLocationMarked=true ;
-                    }
+
+                    }else {
+                    Toast.makeText(getActivity(),"Both markers have been placed",Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -220,16 +232,13 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
         } );
 
 
+                //Moving to current location
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(MainActivity.lat, MainActivity.lng), 15));
 
-        // Add a marker in Sydney and move the camera
-//       LatLng sydney = new LatLng(MainActivity.currentLat, MainActivity.currentLng);
-//
-//         Log.d("latP",""+sydney.latitude) ;
-//        Log.d("latP",""+sydney.longitude) ;
-//
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
+
+
+        }
+
 
 
 
@@ -262,16 +271,19 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
     @Override
     public void onClick(View view) {
 
+        //Setting lat lng from search location bar using static variables
+
+
         if (view.getId()==deliveryPoint.getId()){
             if(deliverMarker!=null) {
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(packageDropOffLocation));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(MainActivity.requestDeliveryLatLng));
             }
         }else if(view.getId()==pickUpPoint.getId())
 
 
         {
             if(pickupMarker!=null) {
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(packagePickupLocation));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(MainActivity.requestPickupLatLng));
             }
         }
 
@@ -279,10 +291,13 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
         else if(view.getId()==removeMaker.getId()){
             deliverMarker=null;
             pickupMarker=null ;
+
+            MainActivity.requestDeliveryLatLng=null ;
+            MainActivity.requestPickupLatLng=null ;
+
             mMap.clear();
 
-            isPickupLocationMarked=false ;
-            isDeliveryLocationMarked=false ;
+
 
 
         }
@@ -297,7 +312,7 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
                 FragmentRequestPlacementFinal offerFinal = new FragmentRequestPlacementFinal();
 
-                changeToSecondFragment(offerFinal);
+                changeToSecondFragment(offerFinal,true);
 
                 //ID,desc,time to deliver,locationdescription,lat,lng
 
@@ -308,10 +323,10 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
 
                 MainActivity.requestPlacementData.add(0,LoginActivity.userId);
-                MainActivity.requestPlacementData.add(1,""+packagePickupLocation.latitude) ;
-                MainActivity.requestPlacementData.add(2,""+packagePickupLocation.longitude) ;
-                MainActivity.requestPlacementData.add(3,""+packageDropOffLocation.latitude) ;
-                MainActivity.requestPlacementData.add(4,""+packageDropOffLocation.longitude) ;
+                MainActivity.requestPlacementData.add(1,""+MainActivity.requestPickupLatLng.latitude) ;
+                MainActivity.requestPlacementData.add(2,""+MainActivity.requestPickupLatLng.longitude) ;
+                MainActivity.requestPlacementData.add(3,""+MainActivity.requestDeliveryLatLng.latitude) ;
+                MainActivity.requestPlacementData.add(4,""+MainActivity.requestDeliveryLatLng.longitude) ;
 
 
 
@@ -334,10 +349,12 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
 
     //Method to change fragment
-    private void changeToSecondFragment(Fragment fragment){
+    private void changeToSecondFragment(Fragment fragment,Boolean addToStack){
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.addToBackStack("offer") ;
+        if (addToStack) {
+            transaction.addToBackStack("offer");
+        }
         transaction.replace(R.id.layout,fragment);
         transaction.commit();
 
