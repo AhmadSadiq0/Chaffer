@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,9 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.chaffer.LoginActivity;
-import app.chaffer.Offer;
+import app.chaffer.Request;
 import app.chaffer.R;
-import app.chaffer.adapter.OrderListAdapter;
 import app.chaffer.adapter.PostedOrderListAdapter;
 
 import static app.chaffer.LoginActivity.token;
@@ -47,7 +45,7 @@ public class FragmentPostedOffers extends Fragment {
     PostedOrderListAdapter adapter ;
     RecyclerView recyclerView ;
     ProgressBar progressBar ;
-    ArrayList<Offer> offerArrayList=new ArrayList<>() ;
+    ArrayList<Request> requestArrayList =new ArrayList<>() ;
     private String url= LoginActivity.IP+"/users/myrequest" ;
     FragmentTransaction fm ;
 
@@ -98,7 +96,7 @@ public class FragmentPostedOffers extends Fragment {
 
 
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,url
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(com.android.volley.Request.Method.GET,url
                 , new JSONObject(),
                 new Response.Listener<JSONObject>() {
 
@@ -109,7 +107,7 @@ public class FragmentPostedOffers extends Fragment {
 
                         try {
                             //Cleaning the array
-                            offerArrayList.clear();
+                            requestArrayList.clear();
 
                             JSONArray array = new JSONArray(response.getString("myReq"));
                             {
@@ -124,7 +122,7 @@ public class FragmentPostedOffers extends Fragment {
 
                                     Log.d("response_offerList",obj.toString()) ;
 
-                                    Offer offer=new Offer(obj.getString("fkuser_id"),obj.getString("request_id"),obj.getString("name"),
+                                    Request request =new Request(obj.getString("fkuser_id"),obj.getString("request_id"),obj.getString("name"),
                                             obj.getString("description"),obj.getString("time_to_deliver"),obj.getString("loc_lat"),obj.getString("loc_long"),
                                             obj.getString("des_lat"),obj.getString("des_long"),obj.getString("pickup_des"),obj.getString("dropoff_des"),
                                             obj.getString("pkg_des") ,obj.getString("status")) ;
@@ -135,14 +133,14 @@ public class FragmentPostedOffers extends Fragment {
                                     //  Log.d("des",obj.getString("description")) ;
 
 
-                                    offerArrayList.add(offer) ;
+                                    requestArrayList.add(request) ;
 
                                 }
 
                                 Toast.makeText(getActivity(), "Data fetched", Toast.LENGTH_LONG).show();
 
                                 //Fetching data and setting adapter
-                                adapter=new PostedOrderListAdapter(getActivity(),offerArrayList,fm) ;
+                                adapter=new PostedOrderListAdapter(getActivity(), requestArrayList,fm) ;
                                 recyclerView.setAdapter(adapter);
 
 

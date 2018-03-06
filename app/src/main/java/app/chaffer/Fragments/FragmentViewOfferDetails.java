@@ -20,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -28,9 +27,7 @@ import java.util.Map;
 
 import app.chaffer.LoginActivity;
 import app.chaffer.MainActivity;
-import app.chaffer.Offer;
 import app.chaffer.R;
-import app.chaffer.adapter.PostedOrderListAdapter;
 
 import static app.chaffer.LoginActivity.token;
 
@@ -45,12 +42,12 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
     Button btn_viewMap, btn_createOffer;
 
     //Url to close a request
-    private String url = LoginActivity.IP + "/users/request/" + MainActivity.selectedOfferFromOfferFeed.getRequestId();
+    private String url = LoginActivity.IP + "/users/request/" + MainActivity.selectedOfferFromRequestFeed.getRequestId();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_view_offer_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_request_details, container, false);
 
         username = (TextView) view.findViewById(R.id.user_name);
         offerDes = (TextView) view.findViewById(R.id.offer_description_text);
@@ -69,14 +66,14 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
         btn_createOffer.setOnClickListener(this);
 
         //setting text
-        username.setText(MainActivity.selectedOfferFromOfferFeed.getUserName());
-        offerDes.setText(MainActivity.selectedOfferFromOfferFeed.getOfferDescription());
-        pickUpDes.setText(MainActivity.selectedOfferFromOfferFeed.getPickUpLocationDescription());
-        dropoffDes.setText(MainActivity.selectedOfferFromOfferFeed.getDrofOffLocationDescription());
+        username.setText(MainActivity.selectedOfferFromRequestFeed.getUserName());
+        offerDes.setText(MainActivity.selectedOfferFromRequestFeed.getOfferDescription());
+        pickUpDes.setText(MainActivity.selectedOfferFromRequestFeed.getPickUpLocationDescription());
+        dropoffDes.setText(MainActivity.selectedOfferFromRequestFeed.getDrofOffLocationDescription());
 
 
         //Setting status text
-        if (MainActivity.selectedOfferFromOfferFeed.getStatus().equals("ACTIVE")) {
+        if (MainActivity.selectedOfferFromRequestFeed.getStatus().equals("ACTIVE")) {
             //Enabling button and setting status text as Active
 
             status.setVisibility(View.VISIBLE);
@@ -84,7 +81,7 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
             status.setTextColor(getResources().getColor(R.color.colorPrimary));
             btn_closeOffer.setVisibility(View.VISIBLE);
 
-        } else if (MainActivity.selectedOfferFromOfferFeed.getStatus().equals("CLOSED")) {
+        } else if (MainActivity.selectedOfferFromRequestFeed.getStatus().equals("CLOSED")) {
             //Removing button and setting status text as closed
             status.setVisibility(View.VISIBLE);
             status.setTextColor(getResources().getColor(R.color.red));
@@ -172,7 +169,7 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
         }
 
         else if(view.getId() == btn_createOffer.getId()){
-            FragmentRequestPlacement offer = new FragmentRequestPlacement();
+            FragmentOfferPlacement offer = new FragmentOfferPlacement();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.addToBackStack("viewOffer");
             transaction.replace(R.id.layout, offer);
