@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.ArrayList;
 
 import app.chaffer.Fragments.FragmentHome;
@@ -46,6 +48,7 @@ public class MainActivity extends FragmentActivity {
 
 
         startService(new Intent(this,MyFirebaseInstanceIDService.class)) ;
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         //Receiving broadcast from Location service
         if(broadcastReceiver==null){
