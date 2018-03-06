@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "262337703587",
+    "firebase_url": "https://chaffer-340a7.firebaseio.com",
+    "project_id": "chaffer-340a7",
+    "storage_bucket": "chaffer-340a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262337703587:android:35c0268b2bb51b96",
+        "android_client_info": {
+          "package_name": "app.chaffer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262337703587-n225nqpsu9tadh6av1ir3jirneebjir7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.chaffer",
+            "certificate_hash": "b1653cec0abe94776ea7accbd802033a0ded8ac8"
+          }
+        },
+        {
+          "client_id": "262337703587-p29ileohh1t91omstjk500umgq04tvvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAej-7lKNqwse0dV2Wb6Gh8yzql4JE_1qM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262337703587-p29ileohh1t91omstjk500umgq04tvvl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
