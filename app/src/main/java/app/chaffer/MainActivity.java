@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class MainActivity extends FragmentActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         startService(new Intent(this,MyFirebaseInstanceIDService.class)) ;
+
         FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         //Receiving broadcast from Location service

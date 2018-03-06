@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public static String IP="http://192.168.0.133:3000" ;
     private String loginUrl=IP+"/users/signin" ;
     ProgressBar progressBar ;
+    private String urlFireToken = LoginActivity.IP + "/users/frtoken";
 
     public static String token;
 
@@ -46,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     SharedPreferences.Editor editor ;
-
+    SharedPreferences preferences ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         editor = this.getSharedPreferences("User", MODE_PRIVATE) .edit();
+         preferences=this.getSharedPreferences("User",MODE_PRIVATE) ;
 
 
         submit=(Button) findViewById(R.id.submit_login) ;
@@ -125,6 +128,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                     Log.d("login_token", object.getString("tk"));
 
+
+                                    //Firebase token
+                                    sendRegistrationToServer( token);
+
+
                                     //Starting main activity
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
@@ -134,11 +142,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                 else if(!object.getString("tk").equals("") &&object.getString("info").equals("unfilled")) {
 
+
+
                                     //getting user id
                                     userId=object.getString("id") ;
 
                                     //getting token
                                     token = object.getString("tk");
+
+                                    //Firebase token
+                                    sendRegistrationToServer( token);
 
 
                                     Intent intent = new Intent(LoginActivity.this, SignUpUserForm.class);
@@ -201,6 +214,72 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+    }
+
+
+
+
+    private void sendRegistrationToServer(String token) {
+
+        // Update Token in database
+        //Seding request
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+
+        Map<String, String> postParam = new HashMap<String, String>();
+
+        postParam.put("fkuser_id", LoginActivity.userId);
+        postParam.put("token",token);
+
+
+//                For testing purpose only
+        JSONObject jsonObject=new JSONObject(postParam) ;
+        Log.d("obj",jsonObject.toString()) ;
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, urlFireToken
+                , new JSONObject(postParam),
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("response", response.toString());
+
+                        try {
+                            JSONObject object = new JSONObject(response.toString());
+                            if (object.getString("token").equals("updated")) {
+                            }
+
+                        } catch (Exception e) {
+                            // Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("Error: " + error.getMessage());
+            }
+
+        }) {
+
+            //This is for Headers If You Needed
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                //  params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("authorization", preferences.getString("tk",null));
+                return params;
+            }
+        };
+
+        jsonObjReq.setTag("json");
+        // Adding request to request queue
+        queue.add(jsonObjReq);
     }
 
 }
