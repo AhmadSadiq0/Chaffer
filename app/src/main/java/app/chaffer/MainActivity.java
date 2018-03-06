@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.ArrayList;
 
 import app.chaffer.Fragments.FragmentHome;
@@ -34,7 +37,8 @@ public class MainActivity extends FragmentActivity {
       public static double lat ;
       public static  double lng ;
       ProgressBar progressBar;
-
+    public static LatLng requestPickupLatLng ;
+    public static LatLng requestDeliveryLatLng ;
       private boolean isLocationFetched=false ;
 
     @Override
@@ -44,6 +48,7 @@ public class MainActivity extends FragmentActivity {
 
         progressBar=(ProgressBar) findViewById(R.id.progressBar) ;
 
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         startService(new Intent(this,MyFirebaseInstanceIDService.class)) ;
 

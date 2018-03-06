@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,6 +52,7 @@ public class FragmentLocationSearch extends Fragment implements View.OnClickList
     RecyclerView recyclerView ;
 
     LocationListAdapter adapter ;
+    FragmentTransaction fm ;
 
 
 
@@ -78,6 +81,8 @@ public class FragmentLocationSearch extends Fragment implements View.OnClickList
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        fm= getFragmentManager().beginTransaction() ;
 
         return view ;
     }
@@ -160,7 +165,7 @@ public class FragmentLocationSearch extends Fragment implements View.OnClickList
                             progressBar.setVisibility(View.GONE);
 
                             //Fetching data and setting adapter
-                            adapter=new LocationListAdapter(locationList) ;
+                            adapter=new LocationListAdapter(locationList,getActivity(),fm) ;
                             recyclerView.setAdapter(adapter);
 
 

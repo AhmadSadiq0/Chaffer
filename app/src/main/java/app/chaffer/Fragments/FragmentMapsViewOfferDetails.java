@@ -121,7 +121,9 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
         deliveryMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mMap.addMarker(deliveryMarker.position(delivery).title("Drop off : "+MainActivity.selectedOfferFromRequestFeed.getDrofOffLocationDescription() ));
 
-        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deliverylat,deliverylon), 15));
+
+        //Going to current location
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(MainActivity.lat, MainActivity.lng), 15));
 
 
 
@@ -137,6 +139,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
 
 
+
     //method to draw route
 
     private void getRoutToMarker(LatLng start,LatLng mid,LatLng end)  {
@@ -144,7 +147,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
             Routing routing = new Routing.Builder().
                     travelMode(AbstractRouting.TravelMode.DRIVING).
-                    withListener(this).alternativeRoutes(true).waypoints(start,mid, end).build();
+                    withListener(this).alternativeRoutes(false).waypoints(start,mid, end).build();
 
             routing.execute();
 

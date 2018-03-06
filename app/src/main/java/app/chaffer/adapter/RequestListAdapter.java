@@ -83,7 +83,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
 
     @Override
-    public void onBindViewHolder(final RequestListAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
                 final Request currentRequest = requestList.get(position) ;
 
@@ -96,14 +96,14 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
                 holder.deliveryLocation.setText(""+ currentRequest.getDrofOffLocationDescription());
                 holder.time.setText(""+ currentRequest.getTimeToDeliver());
 
-            //changing image of user's own request to red
+             new DownloadImageTask(holder.orderPlacerImage).execute("https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png") ;
+        //changing image of user's own request to red
 
         if (currentRequest.getUserId().equals(LoginActivity.userId)){
                     holder.userRequest.setBackgroundResource(R.mipmap.red);
 
                 }
 
-        new DownloadImageTask(holder.orderPlacerImage).execute("https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png") ;
 
         holder.parentlayout.setOnClickListener(new View.OnClickListener() {
             @Override
