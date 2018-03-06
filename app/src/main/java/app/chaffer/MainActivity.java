@@ -18,7 +18,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.chaffer.Fragments.FragmentHome;
-import app.chaffer.Fragments.MyFirebaseInstanceIDService;
 
 
 public class MainActivity extends FragmentActivity {

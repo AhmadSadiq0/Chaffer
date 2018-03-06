@@ -56,12 +56,9 @@ public class FragmentOfferPlacement extends Fragment implements View.OnClickList
     public void onClick(View view) {
         if (view.getId() == btnPlaceOffer.getId()) {
 
-//            if (!txtDescription.getText().toString().equals("") && !txtAmount.getText().toString().equals("")
-//                    && !txtTime.getText().toString().equals("")) {
+            if (!txtDescription.getText().toString().equals("") && !txtAmount.getText().toString().equals("")
+                    && !txtTime.getText().toString().equals("")) {
                 //putting data of request in a static array list defined in Main Activity
-            boolean abc = true;
-            if(abc){
-
 
                 //Seding request
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
