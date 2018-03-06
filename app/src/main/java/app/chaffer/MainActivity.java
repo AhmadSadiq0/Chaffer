@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.chaffer.Fragments.FragmentHome;
+import app.chaffer.Fragments.MyFirebaseInstanceIDService;
 
 
 public class MainActivity extends FragmentActivity {
@@ -43,7 +44,9 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         progressBar=(ProgressBar) findViewById(R.id.progressBar) ;
-        //startService(new Intent(this,LocationService.class)) ;
+
+
+        startService(new Intent(this,MyFirebaseInstanceIDService.class)) ;
 
         //Receiving broadcast from Location service
         if(broadcastReceiver==null){
