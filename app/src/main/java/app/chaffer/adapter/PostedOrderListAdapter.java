@@ -19,7 +19,7 @@ import java.util.List;
 
 import app.chaffer.Fragments.FragmentViewOfferDetails;
 import app.chaffer.MainActivity;
-import app.chaffer.Offer;
+import app.chaffer.Request;
 import app.chaffer.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderListAdapter.MyViewHolder> {
 
-    private List<Offer> offerList;
+    private List<Request> requestList;
     private Context context ;
     FragmentTransaction fm ;
 
@@ -65,9 +65,9 @@ public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderList
 
 
 
-    public PostedOrderListAdapter(Context context, List<Offer> offerList, FragmentTransaction fm) {
+    public PostedOrderListAdapter(Context context, List<Request> requestList, FragmentTransaction fm) {
 
-        this.offerList = offerList;
+        this.requestList = requestList;
 
         this.context=context ;
 
@@ -82,12 +82,12 @@ public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderList
     @Override
     public void onBindViewHolder(PostedOrderListAdapter.MyViewHolder holder, final int position) {
 
-                final Offer currentOffer = offerList.get(position) ;
-                holder.userName.setText(""+currentOffer.getUserName());
-                holder.orderDescription.setText(""+currentOffer.getOfferDescription());
-                holder.pickUpLocation.setText(""+currentOffer.getPickUpLocationDescription());
-                holder.deliveryLocation.setText(""+currentOffer.getDrofOffLocationDescription());
-                holder.time.setText(""+currentOffer.getTimeToDeliver());
+                final Request currentRequest = requestList.get(position) ;
+                holder.userName.setText(""+ currentRequest.getUserName());
+                holder.orderDescription.setText(""+ currentRequest.getOfferDescription());
+                holder.pickUpLocation.setText(""+ currentRequest.getPickUpLocationDescription());
+                holder.deliveryLocation.setText(""+ currentRequest.getDrofOffLocationDescription());
+                holder.time.setText(""+ currentRequest.getTimeToDeliver());
 
         new DownloadImageTask(holder.orderPlacerImage).execute("https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png") ;
 
@@ -96,16 +96,16 @@ public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderList
             public void onClick(View view) {
 
 
-                MainActivity.selectedOfferFromOfferFeed=currentOffer ;
+                MainActivity.selectedOfferFromRequestFeed = currentRequest;
 
 
-               // Toast.makeText(context,MainActivity.selectedOfferFromOfferFeed.getUserName(),Toast.LENGTH_LONG).show();
+               // Toast.makeText(context,MainActivity.selectedOfferFromRequestFeed.getUserName(),Toast.LENGTH_LONG).show();
 
                 //Channging fragment
                 FragmentViewOfferDetails offerDetails = new FragmentViewOfferDetails();
 
                 fm.replace(R.id.layout,offerDetails) ;
-                fm.addToBackStack("offerList") ;
+                fm.addToBackStack("requestList") ;
                 fm.commit();
 
                 //Create a bundle to pass data, add data, set the bundle to your fragment and:
@@ -120,7 +120,7 @@ public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderList
 
     @Override
     public int getItemCount() {
-        return offerList.size();
+        return requestList.size();
     }
 
 

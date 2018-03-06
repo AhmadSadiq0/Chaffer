@@ -3,7 +3,6 @@ package app.chaffer.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,11 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -32,10 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.chaffer.LoginActivity;
-import app.chaffer.MainActivity;
-import app.chaffer.Offer;
+import app.chaffer.Request;
 import app.chaffer.R;
-import app.chaffer.adapter.OrderListAdapter;
+import app.chaffer.adapter.RequestListAdapter;
 
 import static app.chaffer.LoginActivity.token;
 
@@ -46,11 +42,11 @@ import static app.chaffer.LoginActivity.token;
 public class FragmentOfferList extends Fragment {
 
 
-    OrderListAdapter adapter ;
+    RequestListAdapter adapter ;
     RecyclerView recyclerView ;
     ProgressBar progressBar ;
 
-    ArrayList<Offer> offerArrayList=new ArrayList<>() ;
+    ArrayList<Request> requestArrayList =new ArrayList<>() ;
 
     private String url= LoginActivity.IP+"/users/request" ;
 
@@ -95,7 +91,7 @@ public class FragmentOfferList extends Fragment {
 
 
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,url
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(com.android.volley.Request.Method.GET,url
                 , new JSONObject(),
                 new Response.Listener<JSONObject>() {
 
@@ -106,7 +102,7 @@ public class FragmentOfferList extends Fragment {
 
                         try {
                             //Cleaning the array
-                            offerArrayList.clear();
+                            requestArrayList.clear();
 
                             JSONArray array = new JSONArray(response.getString("reqAll"));
                             {
@@ -121,10 +117,10 @@ public class FragmentOfferList extends Fragment {
 
                                     Log.d("response_offerList",obj.toString()) ;
 
-                                    //As we are using same view details fragment for All offers and user's posted offer that's status is of no importance here and i have
+                                    //As we are using same view details fragment for All offers and user's posted request that's status is of no importance here and i have
                                     //set it to empty where same status will be used in PostedOffer fragment.
 
-                                    Offer offer=new Offer(obj.getString("fkuser_id"),obj.getString("request_id"),obj.getString("name"),
+                                    Request request =new Request(obj.getString("fkuser_id"),obj.getString("request_id"),obj.getString("name"),
                                             obj.getString("description"),obj.getString("time_to_deliver"),obj.getString("loc_lat"),obj.getString("loc_long"),
                                             obj.getString("des_lat"),obj.getString("des_long"),obj.getString("pickup_des"),obj.getString("dropoff_des"),
                                             obj.getString("pkg_des") ,"") ;
@@ -135,14 +131,14 @@ public class FragmentOfferList extends Fragment {
                                   //  Log.d("des",obj.getString("description")) ;
 
 
-                                    offerArrayList.add(offer) ;
+                                    requestArrayList.add(request) ;
 
                                 }
 
                                 Toast.makeText(getActivity(), "Data fetched", Toast.LENGTH_LONG).show();
 
                                 //Fetching data and setting adapter
-                                adapter=new OrderListAdapter(getActivity(),offerArrayList,fm) ;
+                                adapter=new RequestListAdapter(getActivity(), requestArrayList,fm) ;
                                 recyclerView.setAdapter(adapter);
 
 

@@ -1,9 +1,7 @@
 package app.chaffer.Fragments;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import app.chaffer.MainActivity;
 import app.chaffer.R;
 
 /**
@@ -53,7 +50,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
         if(view.getId()==btnPlaceOffer.getId()){
 
 
-            FragmentOfferPlacement offerPlacement=new FragmentOfferPlacement() ;
+            FragmentRequestPlacement offerPlacement=new FragmentRequestPlacement() ;
             transaction.replace(R.id.layout,offerPlacement) ;
             transaction.addToBackStack("home") ;
             transaction.commit() ;

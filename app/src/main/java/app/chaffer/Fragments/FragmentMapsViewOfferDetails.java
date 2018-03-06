@@ -1,15 +1,8 @@
 package app.chaffer.Fragments;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -27,15 +20,12 @@ import com.directions.route.Route;
 import com.directions.route.RouteException;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -45,8 +35,6 @@ import java.util.List;
 
 import app.chaffer.MainActivity;
 import app.chaffer.R;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Created by Mac on 03/03/2018.
@@ -111,18 +99,18 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
         mMap.setMyLocationEnabled(true);
 
         //Pickup lat long
-        Double pickUplat=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getPickUplatitude()) ;
-        Double pickUplon=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getPickUplongitude()) ;
+        Double pickUplat=Double.parseDouble(MainActivity.selectedOfferFromRequestFeed.getPickUplatitude()) ;
+        Double pickUplon=Double.parseDouble(MainActivity.selectedOfferFromRequestFeed.getPickUplongitude()) ;
 
         //Delivery lat long
-        Double deliverylat=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getDeliverLatitude()) ;
-        Double deliverylon=Double.parseDouble(MainActivity.selectedOfferFromOfferFeed.getDeliverLongitude()) ;
+        Double deliverylat=Double.parseDouble(MainActivity.selectedOfferFromRequestFeed.getDeliverLatitude()) ;
+        Double deliverylon=Double.parseDouble(MainActivity.selectedOfferFromRequestFeed.getDeliverLongitude()) ;
 //
-         Log.d("latln",""+MainActivity.selectedOfferFromOfferFeed.getDeliverLatitude()+" "+MainActivity.selectedOfferFromOfferFeed.getDeliverLongitude()) ;
+         Log.d("latln",""+MainActivity.selectedOfferFromRequestFeed.getDeliverLatitude()+" "+MainActivity.selectedOfferFromRequestFeed.getDeliverLongitude()) ;
 //        // Add a marker in Sydney, Australia, and move the camera.
         pickUP = new LatLng(pickUplat,pickUplon);
          pickUpMarker=new MarkerOptions() ;
-        mMap.addMarker(pickUpMarker.position(pickUP).title("Pick up: "+MainActivity.selectedOfferFromOfferFeed.getPickUpLocationDescription() ));
+        mMap.addMarker(pickUpMarker.position(pickUP).title("Pick up: "+MainActivity.selectedOfferFromRequestFeed.getPickUpLocationDescription() ));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pickUplat,pickUplon), 15));
 
         //Delivery marker
@@ -131,7 +119,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
         Log.d("deliver",delivery.latitude +" "+delivery.longitude) ;
         deliveryMarker=new MarkerOptions() ;
         deliveryMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        mMap.addMarker(deliveryMarker.position(delivery).title("Drop off : "+MainActivity.selectedOfferFromOfferFeed.getDrofOffLocationDescription() ));
+        mMap.addMarker(deliveryMarker.position(delivery).title("Drop off : "+MainActivity.selectedOfferFromRequestFeed.getDrofOffLocationDescription() ));
 
         // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deliverylat,deliverylon), 15));
 
@@ -171,7 +159,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
     @Override
     public void onRoutingFailure(RouteException e) {
-        Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
 
     }
 

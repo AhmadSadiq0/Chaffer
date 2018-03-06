@@ -10,7 +10,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Mac on 12/02/2018.
  */
 
-public class Offer {
+public class Request {
 
     private String userId ;
     private String requestId ;
@@ -136,7 +136,7 @@ public class Offer {
 
 
 
-    public Offer(String userId, String requestId, String userName, String offerDescription, String timeToDeliver, String pickUplatitude,String pickUplongitude,  String deliverLatitude, String deliverLongitude, String pickUpLocationDescription, String drofOffLocationDescription, String packageDesription, String status) {
+    public Request(String userId, String requestId, String userName, String offerDescription, String timeToDeliver, String pickUplatitude, String pickUplongitude, String deliverLatitude, String deliverLongitude, String pickUpLocationDescription, String drofOffLocationDescription, String packageDesription, String status) {
         this.userId = userId;
         this.requestId = requestId;
         this.userName = userName;

@@ -2,18 +2,8 @@ package app.chaffer.Fragments;
 
 
 
-import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
 import android.support.v7.widget.DefaultItemAnimator;
@@ -29,11 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.Request;
+
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -43,11 +33,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.chaffer.Location;
-import app.chaffer.LoginActivity;
-import app.chaffer.Offer;
 import app.chaffer.R;
 import app.chaffer.adapter.LocationListAdapter;
-import app.chaffer.adapter.OrderListAdapter;
 
 /**
  * Created by Mac on 21/02/2018.

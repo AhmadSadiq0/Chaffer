@@ -1,6 +1,5 @@
 package app.chaffer;
 
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,13 +7,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,8 +25,8 @@ public class MainActivity extends FragmentActivity {
 
     private TextView mTextMessage;
     private  FragmentHome home;
-    public static ArrayList<String> offerPlacementData=new ArrayList<>() ;
-    public static Offer selectedOfferFromOfferFeed ;
+    public static ArrayList<String> requestPlacementData=new ArrayList<>() ;
+    public static Request selectedOfferFromRequestFeed;
 
     FragmentManager fm =this.getSupportFragmentManager() ;
 
@@ -119,7 +116,7 @@ public class MainActivity extends FragmentActivity {
                 case R.id.navigation_inbox:
                    // mTextMessage.setText("Inbox");
 
-//                    FragmentOfferPlacement order=new FragmentOfferPlacement() ;
+//                    FragmentRequestPlacement order=new FragmentRequestPlacement() ;
 //                    getSupportFragmentManager().beginTransaction()
 //                            .replace(R.id.layout, order).commit();
 

@@ -1,18 +1,7 @@
 package app.chaffer.Fragments;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,13 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONObject;
 
@@ -47,11 +29,10 @@ import java.util.Map;
 import app.chaffer.LoginActivity;
 import app.chaffer.MainActivity;
 import app.chaffer.R;
-import app.chaffer.SignupActivity;
 
 import static app.chaffer.LoginActivity.token;
 
-public class FragmentOfferPlacementFinal extends Fragment implements View.OnClickListener {
+public class FragmentRequestPlacementFinal extends Fragment implements View.OnClickListener {
 
 
 
@@ -67,7 +48,7 @@ public class FragmentOfferPlacementFinal extends Fragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_offer_placement_two, container, false);
+        View view = inflater.inflate(R.layout.fragment_request_placement_two, container, false);
 
 
 
@@ -109,11 +90,11 @@ public class FragmentOfferPlacementFinal extends Fragment implements View.OnClic
             if(!offerDescription.getText().equals("") && !pickUplocationDescription.getText().equals("")){
 
                 //putting data of request in a static array list deifned in Main Activity
-                MainActivity.offerPlacementData.add(5,offerDescription.getText().toString()) ;
-                MainActivity.offerPlacementData.add(6,pickUplocationDescription.getText().toString()) ;
-                MainActivity.offerPlacementData.add(7,timeText) ;
-                MainActivity.offerPlacementData.add(8,dropOffLocationDescription.getText().toString()) ;
-                MainActivity.offerPlacementData.add(9,packageDescription.getText().toString()) ;
+                MainActivity.requestPlacementData.add(5,offerDescription.getText().toString()) ;
+                MainActivity.requestPlacementData.add(6,pickUplocationDescription.getText().toString()) ;
+                MainActivity.requestPlacementData.add(7,timeText) ;
+                MainActivity.requestPlacementData.add(8,dropOffLocationDescription.getText().toString()) ;
+                MainActivity.requestPlacementData.add(9,packageDescription.getText().toString()) ;
 
 
 
@@ -126,16 +107,16 @@ public class FragmentOfferPlacementFinal extends Fragment implements View.OnClic
 
                 Map<String, String> postParam= new HashMap<String, String>();
 
-                postParam.put("fkuser_id", MainActivity.offerPlacementData.get(0));
-                postParam.put("description", MainActivity.offerPlacementData.get(5));
-                postParam.put("time_to_deliver", MainActivity.offerPlacementData.get(7));
-                postParam.put("loc_lat", MainActivity.offerPlacementData.get(1));
-                postParam.put("loc_long", MainActivity.offerPlacementData.get(2));
-                postParam.put("des_lat",MainActivity.offerPlacementData.get(3));
-                postParam.put("des_long",MainActivity.offerPlacementData.get(4));
-                postParam.put("pickup_des",MainActivity.offerPlacementData.get(6));
-                postParam.put("dropoff_des",MainActivity.offerPlacementData.get(8));
-                postParam.put("pkg_des",MainActivity.offerPlacementData.get(9));
+                postParam.put("fkuser_id", MainActivity.requestPlacementData.get(0));
+                postParam.put("description", MainActivity.requestPlacementData.get(5));
+                postParam.put("time_to_deliver", MainActivity.requestPlacementData.get(7));
+                postParam.put("loc_lat", MainActivity.requestPlacementData.get(1));
+                postParam.put("loc_long", MainActivity.requestPlacementData.get(2));
+                postParam.put("des_lat",MainActivity.requestPlacementData.get(3));
+                postParam.put("des_long",MainActivity.requestPlacementData.get(4));
+                postParam.put("pickup_des",MainActivity.requestPlacementData.get(6));
+                postParam.put("dropoff_des",MainActivity.requestPlacementData.get(8));
+                postParam.put("pkg_des",MainActivity.requestPlacementData.get(9));
 
 
 //                For testing purpose only

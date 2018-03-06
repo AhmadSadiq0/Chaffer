@@ -1,16 +1,10 @@
 package app.chaffer.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,15 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileDescriptor;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import app.chaffer.Fragments.FragmentViewOfferDetails;
 import app.chaffer.LoginActivity;
 import app.chaffer.MainActivity;
-import app.chaffer.Offer;
+import app.chaffer.Request;
 import app.chaffer.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,9 +29,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Mac on 12/02/2018.
  */
 
-public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyViewHolder> {
+public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.MyViewHolder> {
 
-    private List<Offer> offerList;
+    private List<Request> requestList;
     private Context context ;
     FragmentTransaction fm ;
 
@@ -69,16 +61,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_recyclerview_orders_list, parent, false);
+                .inflate(R.layout.layout_recyclerview_request_list, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
 
 
-    public OrderListAdapter(Context context,List<Offer> offerList,FragmentTransaction fm) {
+    public RequestListAdapter(Context context, List<Request> requestList, FragmentTransaction fm) {
 
-        this.offerList = offerList;
+        this.requestList = requestList;
 
         this.context=context ;
 
@@ -91,22 +83,22 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
 
     @Override
-    public void onBindViewHolder(final OrderListAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final RequestListAdapter.MyViewHolder holder, final int position) {
 
-                final Offer currentOffer = offerList.get(position) ;
+                final Request currentRequest = requestList.get(position) ;
 
 
-                MainActivity.selectedOfferFromOfferFeed=currentOffer ;
+                MainActivity.selectedOfferFromRequestFeed = currentRequest;
 
-                holder.userName.setText(""+currentOffer.getUserName());
-                holder.orderDescription.setText(""+currentOffer.getOfferDescription());
-                holder.pickUpLocation.setText(""+currentOffer.getPickUpLocationDescription());
-                holder.deliveryLocation.setText(""+currentOffer.getDrofOffLocationDescription());
-                holder.time.setText(""+currentOffer.getTimeToDeliver());
+                holder.userName.setText(""+ currentRequest.getUserName());
+                holder.orderDescription.setText(""+ currentRequest.getOfferDescription());
+                holder.pickUpLocation.setText(""+ currentRequest.getPickUpLocationDescription());
+                holder.deliveryLocation.setText(""+ currentRequest.getDrofOffLocationDescription());
+                holder.time.setText(""+ currentRequest.getTimeToDeliver());
 
             //changing image of user's own request to red
 
-        if (currentOffer.getUserId().equals(LoginActivity.userId)){
+        if (currentRequest.getUserId().equals(LoginActivity.userId)){
                     holder.userRequest.setBackgroundResource(R.mipmap.red);
 
                 }
@@ -118,10 +110,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
             public void onClick(View view) {
 
 
-                MainActivity.selectedOfferFromOfferFeed=currentOffer ;
+                MainActivity.selectedOfferFromRequestFeed = currentRequest;
 
                 //check wethter it's users own request or not
-                if (currentOffer.getUserId().equals(LoginActivity.userId
+                if (currentRequest.getUserId().equals(LoginActivity.userId
                 ))
                 {
 
@@ -132,7 +124,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                     FragmentViewOfferDetails offerDetails = new FragmentViewOfferDetails();
 
                     fm.replace(R.id.layout, offerDetails);
-                    fm.addToBackStack("offerList");
+                    fm.addToBackStack("requestList");
                     fm.commit();
 
                     //Create a bundle to pass data, add data, set the bundle to your fragment and:
@@ -148,7 +140,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return offerList.size();
+        return requestList.size();
     }
 
 

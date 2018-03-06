@@ -150,7 +150,7 @@
         android:id="@+id/place_offer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Place offer"
+        android:text="Place request"
         android:layout_marginTop="@dimen/margin_top"
         android:textColor="@color/white"
         android:background="@color/colorPrimary"
