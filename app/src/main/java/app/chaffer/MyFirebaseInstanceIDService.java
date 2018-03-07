@@ -4,6 +4,7 @@ package app.chaffer;
  * Created by Mac on 06/03/2018.
  */
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -53,7 +54,16 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         if(refreshedToken == null){
             Log.d("NoToken", "Refreshed token: ");
         }
-        sendRegistrationToServer(refreshedToken);
+
+        if (LoginActivity.userId != null && LoginActivity.token != null) {
+            sendRegistrationToServer(refreshedToken);
+        }
+        else{
+            SharedPreferences.Editor editor = this.getSharedPreferences("User", MODE_PRIVATE) .edit();
+            editor.putString("fire_token",refreshedToken) ;
+            editor.commit() ;
+
+        }
 
         // Update Token in database
         //Seding request
@@ -135,8 +145,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         Map<String, String> postParam = new HashMap<String, String>();
 
-        postParam.put("fkuser_id", "5");
-        postParam.put("firebase_token", token);
+        postParam.put("fkuser_id", LoginActivity.userId);
+        postParam.put("token", token);
 
 
 //                For testing purpose only

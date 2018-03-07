@@ -62,7 +62,8 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_request_placement, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+       mapFragment.getMapAsync(this);
 
 
         //getting prefrences
@@ -97,7 +98,7 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
 
         //Pick up location
-        Toast.makeText(getActivity(),"Long press on pickup location to set a marker",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Long press on pickup location to set a marker",Toast.LENGTH_SHORT).show();
 
 
 
@@ -203,7 +204,7 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
                     mMap.addMarker(pickupMarker) ;
 
 
-                    Toast.makeText(getActivity(),"Long press on Delivery location to set a marker",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Long press on Delivery location to set a marker",Toast.LENGTH_SHORT).show();
 
 
                 }else
@@ -314,11 +315,6 @@ public class FragmentRequestPlacement extends Fragment implements OnMapReadyCall
 
                 changeToSecondFragment(offerFinal,true);
 
-                //ID,desc,time to deliver,locationdescription,lat,lng
-
-                //putting data of request in a static array list deifned in Main Activity
-
-                //
 
 
 

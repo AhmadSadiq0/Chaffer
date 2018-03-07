@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class MainActivity extends FragmentActivity {
       public static double lat ;
       public static  double lng ;
       ProgressBar progressBar;
-    public static LatLng requestPickupLatLng ;
-    public static LatLng requestDeliveryLatLng ;
+      public static LatLng requestPickupLatLng ;
+      public static LatLng requestDeliveryLatLng ;
       private boolean isLocationFetched=false ;
 
     @Override
@@ -45,12 +46,16 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         progressBar=(ProgressBar) findViewById(R.id.progressBar) ;
 
         FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         startService(new Intent(this,MyFirebaseInstanceIDService.class)) ;
+
         FirebaseMessaging.getInstance().subscribeToTopic("all");
+
 
         //Receiving broadcast from Location service
         if(broadcastReceiver==null){
@@ -121,11 +126,7 @@ public class MainActivity extends FragmentActivity {
                     return true;
 
                 case R.id.navigation_inbox:
-                   // mTextMessage.setText("Inbox");
 
-//                    FragmentRequestPlacement order=new FragmentRequestPlacement() ;
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.layout, order).commit();
 
                     return true;
                 case R.id.navigation_explore:
@@ -136,6 +137,7 @@ public class MainActivity extends FragmentActivity {
                     return true;
                 case R.id.navigation_more:
                   //  mTextMessage.setText("More");
+
                     return true;
             }
             return false;
