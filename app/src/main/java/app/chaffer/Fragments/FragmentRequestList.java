@@ -57,7 +57,7 @@ public class FragmentRequestList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_offer_list,container,false) ;
+        View view= inflater.inflate(R.layout.fragment_request_list,container,false) ;
         //Fetching data from server
         prepareData();
 

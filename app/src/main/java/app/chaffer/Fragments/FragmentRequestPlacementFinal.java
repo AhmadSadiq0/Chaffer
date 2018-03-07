@@ -2,6 +2,8 @@ package app.chaffer.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,6 +142,13 @@ public class FragmentRequestPlacementFinal extends Fragment implements View.OnCl
                                         Toast.makeText(getActivity(),"Request posted",Toast.LENGTH_LONG).show();
 
 
+                                        //Changing fragment to home
+
+                                        FragmentManager fm=getActivity().getSupportFragmentManager() ;
+                                        FragmentTransaction transaction=getFragmentManager().beginTransaction() ;
+                                        FragmentHome home=new FragmentHome() ;
+                                        transaction.replace(R.id.layout,home) ;
+                                        transaction.commit() ;
 
 
 

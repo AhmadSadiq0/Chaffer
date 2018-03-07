@@ -37,14 +37,16 @@ public class MainActivity extends FragmentActivity {
       public static double lat ;
       public static  double lng ;
       ProgressBar progressBar;
-    public static LatLng requestPickupLatLng ;
-    public static LatLng requestDeliveryLatLng ;
+      public static LatLng requestPickupLatLng ;
+      public static LatLng requestDeliveryLatLng ;
       private boolean isLocationFetched=false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         progressBar=(ProgressBar) findViewById(R.id.progressBar) ;
 
@@ -53,6 +55,7 @@ public class MainActivity extends FragmentActivity {
         startService(new Intent(this,MyFirebaseInstanceIDService.class)) ;
 
         FirebaseMessaging.getInstance().subscribeToTopic("all");
+
 
         //Receiving broadcast from Location service
         if(broadcastReceiver==null){
@@ -123,11 +126,7 @@ public class MainActivity extends FragmentActivity {
                     return true;
 
                 case R.id.navigation_inbox:
-                   // mTextMessage.setText("Inbox");
 
-//                    FragmentRequestPlacement order=new FragmentRequestPlacement() ;
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.layout, order).commit();
 
                     return true;
                 case R.id.navigation_explore:
@@ -138,6 +137,7 @@ public class MainActivity extends FragmentActivity {
                     return true;
                 case R.id.navigation_more:
                   //  mTextMessage.setText("More");
+
                     return true;
             }
             return false;

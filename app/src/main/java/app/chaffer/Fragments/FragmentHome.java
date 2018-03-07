@@ -26,9 +26,14 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+            container.removeAllViews();
+
         View view=inflater.inflate(R.layout.fragment_home, container, false);
 
+
+
          transaction=getFragmentManager().beginTransaction() ;
+
 
         btnPlaceOffer=(Button)view.findViewById(R.id.place_offer) ;
         btnViewOffer=(Button)view.findViewById(R.id.view_offer) ;

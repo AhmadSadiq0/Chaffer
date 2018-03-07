@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.chaffer.dialog.DialogPlaceOffer;
 import app.chaffer.LoginActivity;
 import app.chaffer.MainActivity;
 import app.chaffer.R;
@@ -35,7 +36,7 @@ import static app.chaffer.LoginActivity.token;
  * Created by Mac on 02/03/2018.
  */
 
-public class FragmentViewOfferDetails extends Fragment implements View.OnClickListener {
+public class FragmentViewRequestDetails extends Fragment implements View.OnClickListener {
 
     TextView username, offerDes, pickUpDes, dropoffDes, status;
     Button btn_closeOffer;
@@ -73,9 +74,12 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
 
 
         //Setting status text
+        //To distinguish between Posted requests by a user and all request, status is being changed for all reuqest
+        //there is status is empty have a look in  requestListFragment
         if (MainActivity.selectedOfferFromRequestFeed.getStatus().equals("ACTIVE")) {
             //Enabling button and setting status text as Active
 
+            btn_createOffer.setVisibility(View.GONE);
             status.setVisibility(View.VISIBLE);
             status.setText("Active");
             status.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -83,6 +87,7 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
 
         } else if (MainActivity.selectedOfferFromRequestFeed.getStatus().equals("CLOSED")) {
             //Removing button and setting status text as closed
+            btn_createOffer.setVisibility(View.GONE);
             status.setVisibility(View.VISIBLE);
             status.setTextColor(getResources().getColor(R.color.red));
             status.setText("Closed");
@@ -169,11 +174,10 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
         }
 
         else if(view.getId() == btn_createOffer.getId()){
-            FragmentOfferPlacement offer = new FragmentOfferPlacement();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.addToBackStack("viewOffer");
-            transaction.replace(R.id.layout, offer);
-            transaction.commit();
+            //Offer is being created and send using custom dialog box
+            DialogPlaceOffer dialogPlaceOffer=new DialogPlaceOffer(getActivity()) ;
+            dialogPlaceOffer.show();
+
         }
 
     }
