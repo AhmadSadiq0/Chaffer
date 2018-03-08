@@ -3,10 +3,6 @@ package app.chaffer.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,70 +20,46 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import app.chaffer.LoginActivity;
-import app.chaffer.Request;
 import app.chaffer.R;
+import app.chaffer.Request;
 import app.chaffer.adapter.RequestListAdapter;
 
 import static app.chaffer.LoginActivity.token;
 
 /**
- * Created by Mac on 12/02/2018.
+ * Created by Mac on 08/03/2018.
  */
 
-public class FragmentRequestList extends Fragment {
+public class FragmentMore extends Fragment {
 
-
-    RequestListAdapter adapter ;
-    RecyclerView recyclerView ;
     ProgressBar progressBar ;
 
-    ArrayList<Request> requestArrayList =new ArrayList<>() ;
-
-    private String url= LoginActivity.IP+"/users/request" ;
-
-    FragmentTransaction fm ;
-
+    private String url= LoginActivity.IP +"/users/myinfo" ;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_more,container,false) ;
 
-        View view= inflater.inflate(R.layout.fragment_request_list,container,false) ;
-        //Fetching data from server
+        progressBar=view.findViewById(R.id.progressBar) ;
+
         prepareData();
 
-        recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView_offerList) ;
-        progressBar=(ProgressBar) view.findViewById(R.id.progressBar) ;
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        fm=getFragmentManager().beginTransaction() ;
-
-
-        return view;
-
+        return view ;
     }
 
-
-
-    //Prepare data to fetch
     void prepareData(){
 
-
+        //Progress bar visibility
+        progressBar.setVisibility(View.VISIBLE);
 
 
         //Seding request
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-
-
-
 
 
 
@@ -98,13 +70,12 @@ public class FragmentRequestList extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Log.d("response", response.toString());
+                        Log.d("response_userInfo", response.toString());
 
                         try {
                             //Cleaning the array
-                            requestArrayList.clear();
 
-                            JSONArray array = new JSONArray(response.getString("reqAll"));
+                            JSONArray array = new JSONArray(response.getString(""));
                             {
                                 JSONArray offersArray=array.getJSONArray(0) ;
 
@@ -115,31 +86,23 @@ public class FragmentRequestList extends Fragment {
 
 
 
-                                    Log.d("response_offerList",obj.toString()) ;
 
                                     //As we are using same view details fragment for All offers and user's posted request that's status is of no importance here and i have
                                     //set it to empty where same status will be used in PostedOffer fragment.
 
-                                    Request request =new Request(obj.getString("fkuser_id"),obj.getString("request_id"),obj.getString("name"),
-                                            obj.getString("description"),obj.getString("time_to_deliver"),obj.getString("loc_lat"),obj.getString("loc_long"),
-                                            obj.getString("des_lat"),obj.getString("des_long"),obj.getString("pickup_des"),obj.getString("dropoff_des"),
-                                            obj.getString("pkg_des") ,"") ;
 
 
 
 
-                                  //  Log.d("des",obj.getString("description")) ;
+                                    //  Log.d("des",obj.getString("description")) ;
 
 
-                                    requestArrayList.add(request) ;
 
                                 }
 
                                 Toast.makeText(getActivity(), "Data fetched", Toast.LENGTH_LONG).show();
 
                                 //Fetching data and setting adapter
-                                adapter=new RequestListAdapter(getActivity(), requestArrayList,fm) ;
-                                recyclerView.setAdapter(adapter);
 
 
                             }
@@ -147,7 +110,7 @@ public class FragmentRequestList extends Fragment {
                         }catch (Exception e){
 //                             Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
 
-                             Log.d( "Error_offerlist" , e.toString());
+                            Log.d( "Error More" , e.toString());
 
                         }
 
@@ -199,4 +162,7 @@ public class FragmentRequestList extends Fragment {
 
 
     }
-}
+
+
+    }
+

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.util.List;
 
-import app.chaffer.Fragments.FragmentViewOfferDetails;
+import app.chaffer.Fragments.FragmentViewRequestDetails;
 import app.chaffer.MainActivity;
 import app.chaffer.Request;
 import app.chaffer.R;
@@ -58,7 +58,7 @@ public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderList
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_recyclerview_posted_orders_list, parent, false);
+                .inflate(R.layout.layout_recyclerview_posted_requests_list, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -102,7 +102,7 @@ public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderList
                // Toast.makeText(context,MainActivity.selectedOfferFromRequestFeed.getUserName(),Toast.LENGTH_LONG).show();
 
                 //Channging fragment
-                FragmentViewOfferDetails offerDetails = new FragmentViewOfferDetails();
+                FragmentViewRequestDetails offerDetails = new FragmentViewRequestDetails();
 
                 fm.replace(R.id.layout,offerDetails) ;
                 fm.addToBackStack("requestList") ;

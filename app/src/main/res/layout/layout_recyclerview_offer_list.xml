@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/parent_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/cardview_shadow_end_color"
+    android:padding="5dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/request_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:text="Request descroption here" />
+
+            <TextView
+                android:id="@+id/offer_sender_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_alignLeft="@+id/user_name_message"
+                android:layout_alignStart="@+id/user_name_message"
+                android:layout_below="@+id/request_description"
+                android:layout_marginTop="12dp"
+                android:maxLines="1"
+                android:text="Offer sender name here:" />
+
+            <TextView
+                android:id="@+id/offer_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_alignLeft="@+id/user_name_message"
+                android:layout_alignStart="@+id/user_name_message"
+                android:layout_below="@+id/offer_sender_name"
+                android:layout_marginTop="12dp"
+                android:maxLines="2"
+                android:text="Offer description here:" />
+
+
+            <TextView
+                android:id="@+id/offer_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_alignLeft="@+id/user_name_message"
+                android:layout_alignStart="@+id/user_name_message"
+                android:layout_below="@+id/offer_description"
+                android:layout_marginTop="12dp"
+                android:maxLines="1"
+                android:text="Offer amount:" />
+
+
+            <TextView
+                android:id="@+id/offer_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/offer_description"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:maxLines="2"
+                android:text="Offer time:" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.io.InputStream;
 import java.util.List;
 
-import app.chaffer.Fragments.FragmentViewOfferDetails;
+import app.chaffer.Fragments.FragmentViewRequestDetails;
 import app.chaffer.LoginActivity;
 import app.chaffer.MainActivity;
 import app.chaffer.Request;
@@ -121,7 +121,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
                 }else{
                     //Channging fragment
-                    FragmentViewOfferDetails offerDetails = new FragmentViewOfferDetails();
+                    FragmentViewRequestDetails offerDetails = new FragmentViewRequestDetails();
 
                     fm.replace(R.id.layout, offerDetails);
                     fm.addToBackStack("requestList");

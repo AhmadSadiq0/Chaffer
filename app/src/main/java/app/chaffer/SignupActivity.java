@@ -44,6 +44,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     ProgressBar progressBar ;
     SharedPreferences.Editor editor ;
     SharedPreferences prefs=this.getSharedPreferences("User", MODE_PRIVATE) ;
+    private String urlFireToken = LoginActivity.IP + "/users/frtoken";
+    SharedPreferences preferences ;
 
 
 
@@ -121,6 +123,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                                         editor.commit();
 
+                                        //Firebase token
+                                        sendRegistrationToServer( preferences.getString("fire_token",null));
+
 
 
                                         //Starting main activity
@@ -174,5 +179,77 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         }
+
+
+
+
+//Method to getFirebase token
+    private void sendRegistrationToServer(String token) {
+
+        // Update Token in database
+        //Seding request
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+
+        Map<String, String> postParam = new HashMap<String, String>();
+
+        postParam.put("fkuser_id", LoginActivity.userId);
+        postParam.put("token",token);
+
+
+//                For testing purpose only
+        JSONObject jsonObject=new JSONObject(postParam) ;
+        Log.d("obj",jsonObject.toString()) ;
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, urlFireToken
+                , new JSONObject(postParam),
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("response", response.toString());
+
+                        try {
+                            JSONObject object = new JSONObject(response.toString());
+                            if (object.getString("token").equals("updated")) {
+                            }
+
+                        } catch (Exception e) {
+                            // Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("Error: " + error.getMessage());
+            }
+
+        }) {
+
+            //This is for Headers If You Needed
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                //  params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("authorization", LoginActivity.token);
+                return params;
+            }
+        };
+
+        jsonObjReq.setTag("json");
+        // Adding request to request queue
+        queue.add(jsonObjReq);
+    }
+
+
+
+
+
     }
 

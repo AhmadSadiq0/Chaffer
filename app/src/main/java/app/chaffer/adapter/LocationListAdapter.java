@@ -1,6 +1,7 @@
 package app.chaffer.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -84,6 +85,7 @@ public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapte
 
                 FragmentRequestPlacement requestPlacement=new FragmentRequestPlacement() ;
                 fm.replace(R.id.layout,requestPlacement) ;
+
                 fm.commit() ;
 
 
