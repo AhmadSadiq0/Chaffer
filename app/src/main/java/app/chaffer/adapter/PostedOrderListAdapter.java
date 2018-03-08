@@ -58,7 +58,7 @@ public class PostedOrderListAdapter extends RecyclerView.Adapter<PostedOrderList
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_recyclerview_posted_orders_list, parent, false);
+                .inflate(R.layout.layout_recyclerview_posted_requests_list, parent, false);
 
         return new MyViewHolder(itemView);
     }
