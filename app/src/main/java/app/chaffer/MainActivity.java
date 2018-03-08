@@ -21,6 +21,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 
 import app.chaffer.Fragments.FragmentHome;
+import app.chaffer.Fragments.FragmentMore;
 
 
 public class MainActivity extends FragmentActivity {
@@ -136,8 +137,9 @@ public class MainActivity extends FragmentActivity {
                    // mTextMessage.setText("Notification");
                     return true;
                 case R.id.navigation_more:
-                  //  mTextMessage.setText("More");
-
+                    FragmentMore more = new FragmentMore();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.layout, more).commit();
                     return true;
             }
             return false;

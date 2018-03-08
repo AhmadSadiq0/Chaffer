@@ -59,7 +59,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_map_view_offer_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_map_view_request_details, container, false);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
