@@ -49,8 +49,7 @@ public class GCMNotificationIntentService extends FirebaseMessagingService {
         if(message.getData().size() > 0){
             Log.d("Data","Title: "+ message.getData().get("account"));
         }
-
-        context = this;
+      context = this;
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         builder = new NotificationCompat.Builder(context);
         notification_id = (int) System.currentTimeMillis();
@@ -65,25 +64,10 @@ public class GCMNotificationIntentService extends FirebaseMessagingService {
                 .setContentTitle(message.getNotification().getTitle());
 
         notificationManager.notify(notification_id,builder.build());
-
     }
-//        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        //Setting up Notification channels for android O and above
-////        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-////            setupChannels();
-////        }
-//        int notificationId = new Random().nextInt(60000);
-//        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-//                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-//                .setContentTitle(message.getData().get("title"))
-//                .setContentText(message.getData().get("message"))
-//                .setAutoCancel(true)
-//                .setSound(defaultSoundUri);
 //
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        notificationManager.notify(notificationId /* ID of notification */, notificationBuilder.build());
-//    }
+
+
 
 //    @RequiresApi(api = Build.VERSION_CODES.O)
 //    private void setupChannels() {
