@@ -69,7 +69,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         userNameText=(EditText) findViewById(R.id.text_username) ;
         //firstNameText=(EditText) findViewById(R.id.text_first_name) ;
         //lastNameText=(EditText) findViewById(R.id.text_last_name) ;
-       // textCnic=(EditText) findViewById(R.id.text_cnic) ;
+        // textCnic=(EditText) findViewById(R.id.text_cnic) ;
         //textPhoneNumber=(EditText) findViewById(R.id.text_phoneNumber) ;
         passwordText=(EditText) findViewById(R.id.text_password) ;
 
@@ -91,99 +91,99 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-                Map<String, String> postParam= new HashMap<String, String>();
-               // postParam.put("user_name", userNameText.getText().toString());
-                postParam.put("email", emailText.getText().toString());
-                postParam.put("password", passwordText.getText().toString());
+            Map<String, String> postParam= new HashMap<String, String>();
+            // postParam.put("user_name", userNameText.getText().toString());
+            postParam.put("email", emailText.getText().toString());
+            postParam.put("password", passwordText.getText().toString());
 
 
 
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,signUpUrl
-                        , new JSONObject(postParam),
-                        new Response.Listener<JSONObject>() {
+                    , new JSONObject(postParam),
+                    new Response.Listener<JSONObject>() {
 
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d("response", response.toString());
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("response", response.toString());
 
-                                try {
-                                    JSONObject object = new JSONObject(response.toString());
+                            try {
+                                JSONObject object = new JSONObject(response.toString());
 
-                                    if(!object.getString("tk").equals("")){
+                                if(!object.getString("tk").equals("")){
 
-                                        //static varibale for user id
-                                        userId=object.getString("id") ;
-
-
-                                        Toast.makeText(getApplicationContext(),"done",Toast.LENGTH_LONG).show();
+                                    //static varibale for user id
+                                    userId=object.getString("id") ;
 
 
-                                        //putting user id in shared prefrences
-                                        editor.putString("tk",object.getString("tk")) ;
-
-                                        editor.commit();
-
-                                        //Firebase token
-                                        sendRegistrationToServer( preferences.getString("fire_token",null));
+                                    Toast.makeText(getApplicationContext(),"done",Toast.LENGTH_LONG).show();
 
 
+                                    //putting user id in shared prefrences
+                                    editor.putString("tk",object.getString("tk")) ;
 
-                                        //Starting main activity
-                                        Intent intent=new Intent(SignupActivity.this,SignUpUserForm.class) ;
-                                        startActivity(intent);
-                                        finish();
+                                    editor.commit();
 
-                                    }
+                                    //Firebase token
+                                    sendRegistrationToServer(preferences.getString("fire_token",null));
 
-                                }catch (Exception e){
-                                   // Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+
+
+                                    //Starting main activity
+                                    Intent intent=new Intent(SignupActivity.this,SignUpUserForm.class) ;
+                                    startActivity(intent);
+                                    finish();
 
                                 }
 
-
-                                //Hiding progress bar
-                                progressBar.setVisibility(View.GONE);
+                            }catch (Exception e){
+                                // Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
 
                             }
-                        }, new Response.ErrorListener() {
 
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d( "Error: " + error.getMessage());
+                            //Hiding progress bar
+                            progressBar.setVisibility(View.GONE);
 
-                        Toast.makeText(getApplicationContext(),"Error occured!Please try again",Toast.LENGTH_LONG).show();
-
-
-                        //Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-
-                        //Hiding progress bar
-                        progressBar.setVisibility(View.GONE);
+                        }
+                    }, new Response.ErrorListener() {
 
 
-                    }
-                }) {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d( "Error: " + error.getMessage());
+
+                    Toast.makeText(getApplicationContext(),"Error occured!Please try again",Toast.LENGTH_LONG).show();
 
 
-                };
+                    //Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
 
-                jsonObjReq.setTag("json");
-                // Adding request to request queue
-                queue.add(jsonObjReq);
+                    //Hiding progress bar
+                    progressBar.setVisibility(View.GONE);
 
-                // Cancelling request
+
+                }
+            }) {
+
+
+            };
+
+            jsonObjReq.setTag("json");
+            // Adding request to request queue
+            queue.add(jsonObjReq);
+
+            // Cancelling request
     /* if (queue!= null) {
     queue.cancelAll(TAG);
     } */
 
-            }
-
         }
 
+    }
 
 
 
-//Method to getFirebase token
+
+    //Method to getFirebase token
     private void sendRegistrationToServer(String token) {
 
         // Update Token in database
@@ -246,10 +246,4 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         // Adding request to request queue
         queue.add(jsonObjReq);
     }
-
-
-
-
-
-    }
-
+}

@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -22,14 +23,22 @@ import java.util.Random;
 
 public class GCMNotificationIntentService extends FirebaseMessagingService {
 // Sets an ID for the notification, so it can be updated
+    NotificationCompat.Builder builder;
     NotificationManager notificationManager;
+    private int notification_id;
+    private RemoteViews remoteView;
+    private Context context;
+
     String ADMIN_CHANNEL_ID = "123";
+
+
     public GCMNotificationIntentService() {
         super();
     }
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
+
         Log.d("FirebaseMsgService",message.getFrom());
 
         if(message.getNotification() != null){
@@ -41,8 +50,21 @@ public class GCMNotificationIntentService extends FirebaseMessagingService {
             Log.d("Data","Title: "+ message.getData().get("account"));
         }
 
+        context = this;
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        builder = new NotificationCompat.Builder(context);
+        notification_id = (int) System.currentTimeMillis();
 
+//        remoteView = new RemoteViews(getPackageName(),R.layout.custom_notification);
+//        remoteView.setImageViewResource(R.id.notif_icon,R.mipmap.chaffer);
+//        remoteView.setTextViewText(R.id.notif_title,message.getNotification().getTitle());
+//        remoteView.setProgressBar(R.id.progressBar,100,50,true);
 
+        builder.setSmallIcon(R.mipmap.chaffer)
+                .setAutoCancel(true)
+                .setContentTitle(message.getNotification().getTitle());
+
+        notificationManager.notify(notification_id,builder.build());
 
     }
 //        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
