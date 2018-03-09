@@ -54,9 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-         editor = this.getSharedPreferences("User", MODE_PRIVATE) .edit();
-         preferences=this.getSharedPreferences("User",MODE_PRIVATE) ;
+        editor = this.getSharedPreferences("User", MODE_PRIVATE) .edit();
+        preferences=this.getSharedPreferences("User",MODE_PRIVATE) ;
 
 
         submit=(Button) findViewById(R.id.submit_login) ;
@@ -284,7 +283,3 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 }
-
-
-
-
