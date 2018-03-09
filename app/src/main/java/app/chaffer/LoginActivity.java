@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText loginText ;
     EditText passwordText ;
     TextView createAccount ;
-    public static String IP="http://192.168.0.124:3000" ;
+    public static String IP="http://192.168.0.122:3000" ;
     private String loginUrl=IP+"/users/signin" ;
     ProgressBar progressBar ;
     private String urlFireToken = LoginActivity.IP + "/users/frtoken";
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editor = this.getSharedPreferences("User", MODE_PRIVATE) .edit();
+         editor = this.getSharedPreferences("User", MODE_PRIVATE) .edit();
          preferences=this.getSharedPreferences("User",MODE_PRIVATE) ;
 
 
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                                     //Firebase token
-                                    sendRegistrationToServer( token);
+                                    sendRegistrationToServer(preferences.getString("fire_token",null));
 
 
                                     //Starting main activity
@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     token = object.getString("tk");
 
                                     //Firebase token
-                                    sendRegistrationToServer( token);
+                                    sendRegistrationToServer(preferences.getString("fire_token",null));
 
 
                                     Intent intent = new Intent(LoginActivity.this, SignUpUserForm.class);
@@ -206,6 +206,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else if (view.getId() == createAccount.getId()) {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
+
         }
 
 

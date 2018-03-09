@@ -124,7 +124,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                         editor.commit();
 
                                         //Firebase token
-                                        sendRegistrationToServer( preferences.getString("fire_token",null));
+                                        sendRegistrationToServer(preferences.getString("fire_token",null));
 
 
 
