@@ -115,7 +115,7 @@ public class FragmentRequestList extends Fragment {
 
 
 
-                                    Log.d("response_offerList",obj.toString()) ;
+                                    Log.d("response_RequestList",obj.toString()) ;
 
                                     //As we are using same view details fragment for All offers and user's posted request that's status is of no importance here and i have
                                     //set it to empty where same status will be used in PostedOffer fragment.

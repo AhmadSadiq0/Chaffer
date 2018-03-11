@@ -31,6 +31,7 @@ public class MainActivity extends FragmentActivity {
     private  FragmentHome home;
     public static ArrayList<String> requestPlacementData=new ArrayList<>() ;
     public static Request selectedOfferFromRequestFeed;
+    public static Offer selectedFromOffersList ;
 
     FragmentManager fm =this.getSupportFragmentManager() ;
 
