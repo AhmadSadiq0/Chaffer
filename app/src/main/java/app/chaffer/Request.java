@@ -155,6 +155,22 @@ public class Request {
 
 
 
+    public Request( String requestId,  String offerDescription, String timeToDeliver, String pickUplatitude, String pickUplongitude, String deliverLatitude, String deliverLongitude, String pickUpLocationDescription, String drofOffLocationDescription, String packageDesription, String status) {
+       // this.userId = userId;
+        this.requestId = requestId;
+       // this.userName = userName;
+        this.offerDescription = offerDescription;
+        this.timeToDeliver = timeToDeliver;
+        this.pickUplatitude = pickUplatitude;
+        this.pickUplongitude = pickUplongitude;
+        this.deliverLongitude = deliverLongitude;
+        this.deliverLatitude = deliverLatitude;
+        this.pickUpLocationDescription = pickUpLocationDescription;
+        this.drofOffLocationDescription = drofOffLocationDescription;
+        this.packageDesription = packageDesription;
+        this.status = status;
+    }
+
 
 
 

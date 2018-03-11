@@ -19,7 +19,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
     private Button btnPlaceOffer ;
     private Button btnViewOffer ;
     FragmentTransaction transaction;
-    private TextView viewPostedOffers ;
+    private TextView viewPostedRequests ;
+    private TextView viewPostedOffer ;
+
 
 
     @Override
@@ -37,8 +39,11 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
 
         btnPlaceOffer=(Button)view.findViewById(R.id.place_offer) ;
         btnViewOffer=(Button)view.findViewById(R.id.view_offer) ;
-        viewPostedOffers=(TextView)view.findViewById(R.id.posted_offers) ;
-        viewPostedOffers.setOnClickListener(this);
+        viewPostedRequests=(TextView)view.findViewById(R.id.posted_request) ;
+        viewPostedOffer=(TextView)view.findViewById(R.id.posted_offers) ;
+
+        viewPostedOffer.setOnClickListener(this);
+        viewPostedRequests.setOnClickListener(this);
         btnPlaceOffer.setOnClickListener(this);
         btnViewOffer.setOnClickListener(this);
 
@@ -70,8 +75,14 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
 
 
         }
-        else if(view.getId()==viewPostedOffers.getId()){
+        else if(view.getId()==viewPostedRequests.getId()){
             FragmentPostedRequest postedOffers=new FragmentPostedRequest() ;
+            transaction.replace(R.id.layout,postedOffers) ;
+            transaction.addToBackStack("home") ;
+            transaction.commit() ;
+
+        }else if(view.getId()==viewPostedOffer.getId()){
+            FragmentOfferList postedOffers=new FragmentOfferList() ;
             transaction.replace(R.id.layout,postedOffers) ;
             transaction.addToBackStack("home") ;
             transaction.commit() ;

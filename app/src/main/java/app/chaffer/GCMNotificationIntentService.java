@@ -49,15 +49,10 @@ public class GCMNotificationIntentService extends FirebaseMessagingService {
         if(message.getData().size() > 0){
             Log.d("Data","Title: "+ message.getData().get("account"));
         }
-      context = this;
+        context = this;
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         builder = new NotificationCompat.Builder(context);
         notification_id = (int) System.currentTimeMillis();
-
-//        remoteView = new RemoteViews(getPackageName(),R.layout.custom_notification);
-//        remoteView.setImageViewResource(R.id.notif_icon,R.mipmap.chaffer);
-//        remoteView.setTextViewText(R.id.notif_title,message.getNotification().getTitle());
-//        remoteView.setProgressBar(R.id.progressBar,100,50,true);
 
         builder.setSmallIcon(R.mipmap.chaffer)
                 .setAutoCancel(true)
@@ -68,19 +63,4 @@ public class GCMNotificationIntentService extends FirebaseMessagingService {
 //
 
 
-
-//    @RequiresApi(api = Build.VERSION_CODES.O)
-//    private void setupChannels() {
-//        CharSequence adminChannelName = getString(R.string.notifications_admin_channel_name);
-//        String adminChannelDescription = getString(R.string.notifications_admin_channel_description);
-//        NotificationChannel adminChannel;
-//        adminChannel = new NotificationChannel(ADMIN_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_LOW);
-//        adminChannel.setDescription(adminChannelDescription);
-//        adminChannel.enableLights(true);
-//        adminChannel.setLightColor(Color.RED);
-//        adminChannel.enableVibration(true);
-//        if (notificationManager != null) {
-//            notificationManager.createNotificationChannel(adminChannel);
-//        }
-//    }
 }
