@@ -53,6 +53,9 @@ public class FragmentOfferList extends Fragment {
 
     private String url= LoginActivity.IP + "/users/getmyoffers";
 
+    private String urlPostedOffer= LoginActivity.IP + "/users/sentoffers";
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,6 +74,8 @@ public class FragmentOfferList extends Fragment {
         prepareData();
 
 
+        //intinalizing fragment transaction objection,it will be later used in OfferListAdapter
+        ft=getFragmentManager().beginTransaction() ;
 
 
 
@@ -220,6 +225,7 @@ public class FragmentOfferList extends Fragment {
 
 
     }
+
 
 
 

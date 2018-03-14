@@ -27,38 +27,13 @@
             android:layout_height="wrap_content" />
 
         <android.support.v7.widget.CardView
-            android:layout_below="@+id/todos_text"
             android:id="@+id/card_view_message"
-            android:layout_marginTop="10dp"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="70dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/unread_message"
-                    android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"
-                    android:text="  No of Un read message"
-                    android:layout_height="wrap_content" />
-
-
-                <TextView
-                    android:layout_marginRight="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/text_new_messages"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-
-            </RelativeLayout>
+            android:layout_height="70dp"
+            android:layout_alignLeft="@+id/card_view_order"
+            android:layout_alignStart="@+id/card_view_order"
+            android:layout_below="@+id/todos_text"
+            android:layout_marginTop="9dp">
 
 
 
@@ -126,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
                     android:layout_centerVertical="true"
-                    android:text="  Posted requests"
+                    android:text="  My requests"
                     android:layout_height="wrap_content" />
 
 
@@ -139,6 +114,20 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="91dp">
+
+
+
+
+
+                </RelativeLayout>
 
 
             </RelativeLayout>
@@ -167,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
-                android:text="  Posted offers"
+                android:text="  Received offers"
                 android:layout_height="wrap_content" />
 
 

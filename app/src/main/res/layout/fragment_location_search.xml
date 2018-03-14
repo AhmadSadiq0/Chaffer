@@ -18,8 +18,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:weightSum="4">
+            android:weightSum="6">
         <EditText
 
             android:id="@+id/editText_enterLocation_text"
@@ -27,15 +26,15 @@
             android:layout_height="wrap_content"
             android:hint="Enter location"
             android:lines="1"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:background="@android:color/transparent"/>
 
             <Button
                 android:id="@+id/submit"
-                android:text=""
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:background="@mipmap/search"
+                android:layout_width="80dp"
+                android:layout_weight="2"
+                android:layout_height="30dp" />
 
 
 

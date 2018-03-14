@@ -29,8 +29,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.chaffer.LoginActivity;
+import app.chaffer.MainActivity;
+import app.chaffer.Offer;
 import app.chaffer.Request;
 import app.chaffer.R;
+import app.chaffer.adapter.OfferListAdapter;
 import app.chaffer.adapter.RequestListAdapter;
 
 import static app.chaffer.LoginActivity.token;
@@ -51,6 +54,8 @@ public class FragmentRequestList extends Fragment {
     private String url= LoginActivity.IP+"/users/request" ;
 
     FragmentTransaction fm ;
+
+    private String urlPostedOffer= LoginActivity.IP + "/users/sentoffers";
 
 
     @Nullable
@@ -80,7 +85,8 @@ public class FragmentRequestList extends Fragment {
     //Prepare data to fetch
     void prepareData(){
 
-
+        //getting list of offer already posted against a request, so user can not send two offers against a single request
+        getPostedOfferList();
 
 
         //Seding request
@@ -130,8 +136,15 @@ public class FragmentRequestList extends Fragment {
 
                                   //  Log.d("des",obj.getString("description")) ;
 
+                                for (int j=0;j<MainActivity.postedOfferAgainstRequestList.size();j++){
 
-                                    requestArrayList.add(request) ;
+                                    if(!MainActivity.postedOfferAgainstRequestList.get(j).equals(request.getRequestId())) {
+                                        requestArrayList.add(request);
+                                    }
+
+
+
+                                }
 
                                 }
 
@@ -196,6 +209,126 @@ public class FragmentRequestList extends Fragment {
 
 
 
+
+
+    }
+
+
+
+
+
+
+    //Method to get already posted offers so user can not post an other offer to him
+    private void getPostedOfferList(){
+
+
+
+        //Seding request
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(com.android.volley.Request.Method.GET,urlPostedOffer
+                , new JSONObject(),
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("response_posted_offerList", response.toString());
+
+                        try {
+                            //Cleaning the array
+                            MainActivity.postedOfferAgainstRequestList.clear();
+
+                            JSONArray array = new JSONArray(response.getString("Sent"));
+                            {
+                                //Steps to parse JSON data
+                                JSONArray postedoffersArray=array.getJSONArray(0) ;
+
+                                //END
+
+
+
+
+                                for (int i=0;i<postedoffersArray.length();i++) {
+
+                                    JSONObject jsonBuildObject=postedoffersArray.getJSONObject(i) ;
+                                    JSONObject dataObject=jsonBuildObject.getJSONObject("row_to_json") ;
+
+                                  //  Log.d("response_posted_offerList",dataObject.toString()) ;
+
+
+
+                                    MainActivity.postedOfferAgainstRequestList.add(dataObject.getString("fkrequest_id")) ;
+
+
+
+
+
+
+
+
+
+
+
+
+                                }
+
+                                Toast.makeText(getActivity(), "Data fetched", Toast.LENGTH_LONG).show();
+
+
+
+
+
+                            }
+
+                        }catch (Exception e){
+//                             Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+
+                            Log.d( "error_posted_offerList" , e.toString());
+
+                        }
+
+
+                        //Hiding progress bar
+
+                    }
+                }, new Response.ErrorListener() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d( "Error_postedOfferList" , error.toString());
+
+                Toast.makeText(getActivity(),"Error occured!Please try again",Toast.LENGTH_LONG).show();
+
+
+                //Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+
+                //Hiding progress bar
+
+
+            }
+        }) {
+
+
+            //This is for Headers If You Needed
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                //  params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("authorization", token);
+                return params;
+            }
+
+
+
+        };
+
+        jsonObjReq.setTag("json");
+        // Adding request to request queue
+        queue.add(jsonObjReq);
 
 
     }

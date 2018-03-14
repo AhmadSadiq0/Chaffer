@@ -31,7 +31,8 @@ public class MainActivity extends FragmentActivity {
     private  FragmentHome home;
     public static ArrayList<String> requestPlacementData=new ArrayList<>() ;
     public static Request selectedOfferFromRequestFeed;
-    public static Offer selectedFromOffersList ;
+    public static Offer selectedOfferFromOffersList ;
+    public static ArrayList<String> postedOfferAgainstRequestList=new ArrayList<>() ;
 
     FragmentManager fm =this.getSupportFragmentManager() ;
 
@@ -150,6 +151,9 @@ public class MainActivity extends FragmentActivity {
     };
 
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
+    }
 }
