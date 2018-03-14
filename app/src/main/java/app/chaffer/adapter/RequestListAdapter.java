@@ -90,14 +90,19 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
                 MainActivity.selectedOfferFromRequestFeed = currentRequest;
 
-                holder.userName.setText(""+ currentRequest.getUserName());
-                holder.orderDescription.setText(""+ currentRequest.getOfferDescription());
-                holder.pickUpLocation.setText(""+ currentRequest.getPickUpLocationDescription());
-                holder.deliveryLocation.setText(""+ currentRequest.getDrofOffLocationDescription());
-                holder.time.setText(""+ currentRequest.getTimeToDeliver());
 
-             new DownloadImageTask(holder.orderPlacerImage).execute("https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png") ;
-        //changing image of user's own request to red
+
+                        holder.userName.setText("" + currentRequest.getUserName());
+                        holder.orderDescription.setText("" + currentRequest.getOfferDescription());
+                        holder.pickUpLocation.setText("" + currentRequest.getPickUpLocationDescription());
+                        holder.deliveryLocation.setText("" + currentRequest.getDrofOffLocationDescription());
+                        holder.time.setText("" + currentRequest.getTimeToDeliver());
+
+                        //changing image of user's own request to red
+                        new DownloadImageTask(holder.orderPlacerImage).execute("https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png");
+
+
+
 
         if (currentRequest.getUserId().equals(LoginActivity.userId)){
                     holder.userRequest.setBackgroundResource(R.mipmap.red);

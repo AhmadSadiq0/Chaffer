@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.io.InputStream;
 import java.util.List;
 
+import app.chaffer.Fragments.FragmentViewOfferDetails;
 import app.chaffer.Fragments.FragmentViewRequestDetails;
 import app.chaffer.LoginActivity;
 import app.chaffer.MainActivity;
@@ -91,7 +92,7 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.MyVi
                 final Offer currentOffer = offerList.get(position) ;
 
 
-              //  MainActivity.selectedOfferFromRequestFeed = currentRequest;
+               MainActivity.selectedOfferFromOffersList = currentOffer;
 
                 holder.senderName.setText(""+ currentOffer.getSenderName());
                 holder.amount.setText(""+ currentOffer.getAmount());
@@ -109,25 +110,19 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.MyVi
             public void onClick(View view) {
 
 
-//                MainActivity.selectedOfferFromRequestFeed = currentRequest;
-//
-//                //check wethter it's users own request or not
-//                if (currentRequest.getUserId().equals(LoginActivity.userId
-//                ))
-//                {
-//
-//                    Toast.makeText(context,"This is your offer",Toast.LENGTH_LONG).show();
-//
-//                }else{
-//                    //Channging fragment
-//                    FragmentViewRequestDetails offerDetails = new FragmentViewRequestDetails();
-//
-//                    fm.replace(R.id.layout, offerDetails);
-//                    fm.addToBackStack("requestList");
-//                    fm.commit();
-//
-//                    //Create a bundle to pass data, add data, set the bundle to your fragment and:
-//                }
+                MainActivity.selectedOfferFromOffersList = currentOffer;
+
+                //check wethter it's users own request or not
+
+                    //Channging fragment
+                    FragmentViewOfferDetails offerDetails = new FragmentViewOfferDetails();
+
+                    fm.replace(R.id.layout, offerDetails);
+                    fm.addToBackStack("offerList");
+                    fm.commit();
+
+                    //Create a bundle to pass data, add data, set the bundle to your fragment and:
+
 
 
             }
