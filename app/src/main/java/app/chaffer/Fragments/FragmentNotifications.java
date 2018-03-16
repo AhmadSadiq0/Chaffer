@@ -3,7 +3,6 @@ package app.chaffer.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,55 +28,49 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import app.chaffer.LoginActivity;
+import app.chaffer.Notifications;
 import app.chaffer.Offer;
 import app.chaffer.R;
 import app.chaffer.Request;
+import app.chaffer.adapter.NotificationListAdapter;
 import app.chaffer.adapter.OfferListAdapter;
-import app.chaffer.adapter.RequestListAdapter;
 
+import static app.chaffer.LoginActivity.IP;
 import static app.chaffer.LoginActivity.token;
 
 /**
- * Created by Mac on 08/03/2018.
+ * Created by Mac on 15/03/2018.
  */
 
-public class FragmentOfferList extends Fragment {
+public class FragmentNotifications extends Fragment {
+
+    private String url=IP+"/users/notifs" ;
 
     ProgressBar progressBar ;
-    OfferListAdapter adapter ;
+    NotificationListAdapter adapter ;
     RecyclerView recyclerView ;
     FragmentTransaction ft ;
 
-    ArrayList<Offer> offerListArray =new ArrayList<>() ;
-
-    private String url= LoginActivity.IP + "/users/getmyoffers";
-
-   // private String urlPostedOffer= LoginActivity.IP + "/users/sentoffers";
+    ArrayList<Notifications> notificationArrayList =new ArrayList<>() ;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_offers_list,container,false) ;
+
+        View view=inflater.inflate(R.layout.fragment_notification,container,false) ;
+
+        progressBar=view.findViewById(R.id.progressBar) ;
 
 
-        recyclerView=(RecyclerView) view.findViewById(R.id.offer_list_recycler_view) ;
+
+        recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView_notifications) ;
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-        progressBar=(ProgressBar) view.findViewById(R.id.progressBar) ;
-
-
         prepareData();
-
-
-        //intinalizing fragment transaction objection,it will be later used in OfferListAdapter
-        ft=getFragmentManager().beginTransaction() ;
-
-
 
 
 
@@ -85,6 +78,7 @@ public class FragmentOfferList extends Fragment {
         return view ;
 
     }
+
 
     //Prepare data to fetch
     void prepareData(){
@@ -107,62 +101,57 @@ public class FragmentOfferList extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Log.d("response_offerList", response.toString());
+                        Log.d("response_NotificationList", response.toString());
 
                         try {
                             //Cleaning the array
-                            offerListArray.clear();
+                            notificationArrayList.clear();
 
-                            JSONArray array = new JSONArray(response.getString("receivedOffers"));
-                            {
-                                //Steps to parse JSON data
-                                JSONArray offersArray=array.getJSONArray(0) ;
+                            JSONArray array = new JSONArray(response.getString("all"));
+
 
                                 //END
 
+                                for (int i=0;i<array.length();i++) {
+                                    //Steps to parse JSON data
+                                    JSONObject notifications=array.getJSONObject(i) ;
 
 
+                                    Log.d("response_NotificationList",notifications.getString("fkuser_id")) ;
 
-                                for (int i=0;i<offersArray.length();i++) {
-
-                                    JSONObject jsonBuildObject=offersArray.getJSONObject(i) ;
-                                    JSONObject dataObject=jsonBuildObject.getJSONObject("json_build_object") ;
-
-                                    Log.d("response_offerList",dataObject.toString()) ;
-
-                                    //request data
-                                    JSONObject obj=dataObject.getJSONObject("requestInfo") ;
+                                    Notifications notification=new Notifications(notifications.getString("notif_id"),notifications.getString("description"),notifications.getString("fkuser_id"),
+                                            notifications.getString("fkrel_id"),notifications.getString("fkrel_type"),notifications.getString("isRead") );
 
 
 
 
 
+////
+//                                    Request request =new Request(obj.getString("request_id"),
+//                                            obj.getString("request_desc"),obj.getString("time_to_deliver"),obj.getString("loc_lat"),obj.getString("loc_long"),
+//                                            obj.getString("des_lat"),obj.getString("des_long"),obj.getString("pickup_des"),obj.getString("dropoff_des"),
+//                                            obj.getString("pkg_des") ,obj.getString("request_status")) ;
 //
-                                    Request request =new Request(obj.getString("request_id"),
-                                            obj.getString("request_desc"),obj.getString("time_to_deliver"),obj.getString("loc_lat"),obj.getString("loc_long"),
-                                            obj.getString("des_lat"),obj.getString("des_long"),obj.getString("pickup_des"),obj.getString("dropoff_des"),
-                                            obj.getString("pkg_des") ,obj.getString("request_status")) ;
-
-
-                                    Offer offer=new Offer(dataObject.getString("offer_id"),dataObject.getString("offer_sender_id"),dataObject.getString("offer_sender_name"),
-                                            dataObject.getString("offer_desc"),dataObject.getString("amount"),dataObject.getString("offer_status"),dataObject.getString("time_suggested"),request) ;
+//
+//                                    Offer offer=new Offer(dataObject.getString("offer_id"),dataObject.getString("offer_sender_id"),dataObject.getString("offer_sender_name"),
+//                                            dataObject.getString("offer_desc"),dataObject.getString("amount"),dataObject.getString("offer_status"),dataObject.getString("time_suggested"),request) ;
+//
 
 
 
-
-                                    offerListArray.add(offer) ;
+                                    notificationArrayList.add(notification) ;
 
 
 
 
 
 
-                                }
+
 
                                 Toast.makeText(getActivity(), "Data fetched", Toast.LENGTH_LONG).show();
 
                                 //Fetching data and setting adapter
-                                adapter=new OfferListAdapter(getActivity(), offerListArray,ft) ;
+                                adapter=new NotificationListAdapter(getActivity(), notificationArrayList,ft) ;
                                 recyclerView.setAdapter(adapter);
 
 
@@ -173,7 +162,7 @@ public class FragmentOfferList extends Fragment {
                         }catch (Exception e){
 //                             Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
 
-                            Log.d( "Error_offerlist" , e.toString());
+                            Log.d( "Error_Notificationlist" , e.toString());
 
                         }
 
@@ -187,7 +176,7 @@ public class FragmentOfferList extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d( "Error_offerlist" , error.toString());
+                Log.d( "Error_Notificationlist" , error.toString());
 
                 Toast.makeText(getActivity(),"Error occured!Please try again",Toast.LENGTH_LONG).show();
 
@@ -225,6 +214,11 @@ public class FragmentOfferList extends Fragment {
 
 
     }
+
+
+
+
+
 
 
 
