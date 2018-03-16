@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import app.chaffer.Fragments.FragmentHome;
 import app.chaffer.Fragments.FragmentMore;
+import app.chaffer.Fragments.FragmentNotifications;
 
 
 public class MainActivity extends FragmentActivity {
@@ -137,6 +138,9 @@ public class MainActivity extends FragmentActivity {
                     return true;
                 case R.id.navigation_notifications:
                    // mTextMessage.setText("Notification");
+                    FragmentNotifications notifications = new FragmentNotifications();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.layout, notifications).commit();
                     return true;
                 case R.id.navigation_more:
                     FragmentMore more = new FragmentMore();

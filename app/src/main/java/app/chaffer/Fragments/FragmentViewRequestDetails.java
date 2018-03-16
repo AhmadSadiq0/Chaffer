@@ -38,7 +38,7 @@ import static app.chaffer.LoginActivity.token;
 
 public class FragmentViewRequestDetails extends Fragment implements View.OnClickListener {
 
-    TextView username, offerDes, pickUpDes, dropoffDes, status;
+    TextView username, offerDes, pickUpDes, dropoffDes, status,time;
     Button btn_closeOffer;
     Button btn_viewMap, btn_createOffer;
 
@@ -55,6 +55,8 @@ public class FragmentViewRequestDetails extends Fragment implements View.OnClick
         pickUpDes = (TextView) view.findViewById(R.id.picklocation_description_text);
         dropoffDes = (TextView) view.findViewById(R.id.dropoff_description_text);
         status = (TextView) view.findViewById(R.id.status);
+        time = (TextView) view.findViewById(R.id.offer_time_text);
+
 
 
         btn_viewMap = (Button) view.findViewById(R.id.view_map);
@@ -71,7 +73,7 @@ public class FragmentViewRequestDetails extends Fragment implements View.OnClick
         offerDes.setText(MainActivity.selectedOfferFromRequestFeed.getOfferDescription());
         pickUpDes.setText(MainActivity.selectedOfferFromRequestFeed.getPickUpLocationDescription());
         dropoffDes.setText(MainActivity.selectedOfferFromRequestFeed.getDrofOffLocationDescription());
-
+        time.setText(MainActivity.selectedOfferFromRequestFeed.getTimeToDeliver());
 
         //Setting status text
         //To distinguish between Posted requests by a user and all request, status is being changed for all reuqest
