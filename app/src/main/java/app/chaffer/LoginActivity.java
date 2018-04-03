@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String urlFireToken = LoginActivity.IP + "/users/frtoken";
 
     public static String token;
-
     public static String userId;
 
 
@@ -81,6 +80,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             SharedPreferences prefs = getSharedPreferences("User", MODE_PRIVATE);
 
+            // Check for inputs
+            if(loginText.getText().toString().equals("") || passwordText.getText().toString().equals("")){
+                Toast.makeText(this,"Enter email and password",Toast.LENGTH_SHORT).show();
+                return;
+            }
 
 
             //Progress bar Visible
@@ -205,7 +209,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else if (view.getId() == createAccount.getId()) {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
-
         }
 
 
