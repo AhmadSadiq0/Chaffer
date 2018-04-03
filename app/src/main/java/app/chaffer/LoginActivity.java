@@ -36,13 +36,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText loginText ;
     EditText passwordText ;
     TextView createAccount ;
-    public static String IP="http://192.168.0.115:3000" ;
-    private String loginUrl=IP+"/users/signin" ;
+    public static String IP="http://192.168.0.103:3000" ;
+    private String loginUrl=IP+"/users/signin";
     ProgressBar progressBar ;
     private String urlFireToken = LoginActivity.IP + "/users/frtoken";
 
     public static String token;
-
     public static String userId;
 
 
@@ -81,6 +80,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             SharedPreferences prefs = getSharedPreferences("User", MODE_PRIVATE);
 
+            // Check for inputs
+            if(loginText.getText().toString().equals("") || passwordText.getText().toString().equals("")){
+                Toast.makeText(this,"Enter email and password",Toast.LENGTH_SHORT).show();
+                return;
+            }
 
 
             //Progress bar Visible
@@ -205,7 +209,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else if (view.getId() == createAccount.getId()) {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
-
         }
 
 

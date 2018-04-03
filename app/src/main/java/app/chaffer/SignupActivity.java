@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     Button submit ;
     EditText emailText ;
     EditText passwordText ;
+    EditText passwordText2 ;
     EditText userNameText ;
     EditText firstNameText ;
     EditText lastNameText ;
@@ -43,10 +45,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     EditText textPhoneNumber ;
     ProgressBar progressBar ;
     SharedPreferences.Editor editor ;
-    SharedPreferences prefs=this.getSharedPreferences("User", MODE_PRIVATE) ;
     private String urlFireToken = LoginActivity.IP + "/users/frtoken";
     SharedPreferences preferences ;
-
+    SharedPreferences prefs;
 
 
 
@@ -56,7 +57,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
+        prefs=this.getSharedPreferences("User", MODE_PRIVATE) ;
 
         editor = prefs.edit();
 
@@ -72,7 +73,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         // textCnic=(EditText) findViewById(R.id.text_cnic) ;
         //textPhoneNumber=(EditText) findViewById(R.id.text_phoneNumber) ;
         passwordText=(EditText) findViewById(R.id.text_password) ;
-
+        passwordText2=(EditText) findViewById(R.id.text_password2) ;
         submit.setOnClickListener(this);
 
 
@@ -81,6 +82,22 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if(view.getId()==submit.getId()){
+
+            // Error Checking
+            if(emailText.getText().toString().equals("") || passwordText.getText().toString().equals("") ||
+                    passwordText2.getText().toString().equals("")){
+                Toast.makeText(this,"Enter email, password and confirm password",Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                if(!passwordText.getText().toString().equals(passwordText2.getText().toString())){
+                    Toast.makeText(this,"Error: Passwords don't match",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!Patterns.EMAIL_ADDRESS.matcher(emailText.getText().toString()).matches()){
+                    Toast.makeText(this,"Error: Invalid Email",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
 
             //Progress bar Visible
             progressBar.setVisibility(View.VISIBLE);
