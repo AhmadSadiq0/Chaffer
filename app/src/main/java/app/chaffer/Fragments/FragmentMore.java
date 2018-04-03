@@ -1,5 +1,8 @@
 package app.chaffer.Fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -20,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +43,12 @@ import static app.chaffer.LoginActivity.token;
 public class FragmentMore extends Fragment {
 
     ProgressBar progressBar ;
+    TextView firstName ;
+    TextView lastName ;
+    TextView cnic ;
+    TextView phoneNumber ;
+    TextView email ;
+    ImageView userImage ;
 
     private String url= LoginActivity.IP +"/users/myinfo" ;
 
@@ -46,6 +58,18 @@ public class FragmentMore extends Fragment {
         View view=inflater.inflate(R.layout.fragment_more,container,false) ;
 
         progressBar=view.findViewById(R.id.progressBar) ;
+
+
+        firstName=view.findViewById(R.id.text_fn) ;
+        lastName=view.findViewById(R.id.text_ln) ;
+        cnic=view.findViewById(R.id.text_cninc);
+        phoneNumber=view.findViewById(R.id.text_phone) ;
+        email=view.findViewById(R.id.text_email) ;
+        userImage=view.findViewById(R.id.profile_image) ;
+
+
+
+
 
         prepareData();
 
@@ -75,14 +99,25 @@ public class FragmentMore extends Fragment {
                         try {
                             //Cleaning the array
 
-                            JSONArray array = new JSONArray(response.getString(""));
+                            JSONArray array = new JSONArray(response.getString("userinfo"));
                             {
                                 JSONArray offersArray=array.getJSONArray(0) ;
 
-                                for (int i=0;i<offersArray.length();i++) {
 
-                                    JSONObject object=offersArray.getJSONObject(i) ;
-                                    JSONObject obj=new JSONObject(object.getString("row_to_json")) ;
+                                    JSONObject Object=offersArray.getJSONObject(0) ;
+                                    JSONObject innerObject=Object.getJSONObject("row_to_json") ;
+
+
+
+
+
+                                    firstName.setText(innerObject.getString("first_name").toString());
+                                    lastName.setText(innerObject.getString("last_name").toString());
+                                    phoneNumber.setText(innerObject.getString("phone").toString());
+                                    cnic.setText(innerObject.getString("cnic").toString());
+
+
+                                    new DownloadImageTask(userImage).execute("https://scontent.fisb1-1.fna.fbcdn.net/v/t1.0-9/26219785_1305275912911579_859082525081003821_n.jpg?_nc_cat=0&oh=72f9098e18dd4a961c32630fa717b805&oe=5B2A6E46") ;
 
 
 
@@ -105,7 +140,7 @@ public class FragmentMore extends Fragment {
                                 //Fetching data and setting adapter
 
 
-                            }
+
 
                         }catch (Exception e){
 //                             Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
@@ -164,5 +199,35 @@ public class FragmentMore extends Fragment {
     }
 
 
-    }
+
+
+
+            //Code to download and load image from url
+            private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+                ImageView bmImage;
+
+                public DownloadImageTask(ImageView bmImage) {
+                    this.bmImage = bmImage;
+                }
+
+                protected Bitmap doInBackground(String... urls) {
+                    String urldisplay = urls[0];
+                    Bitmap mIcon11 = null;
+                    try {
+                        InputStream in = new java.net.URL(urldisplay).openStream();
+                        mIcon11 = BitmapFactory.decodeStream(in);
+                    } catch (Exception e) {
+                        Log.e("Error", e.getMessage());
+                        e.printStackTrace();
+                    }
+                    return mIcon11;
+                }
+
+                protected void onPostExecute(Bitmap result) {
+                    bmImage.setImageBitmap(result);
+                }
+            }
+
+
+            }
 

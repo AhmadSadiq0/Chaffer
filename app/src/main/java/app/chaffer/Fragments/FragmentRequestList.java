@@ -135,18 +135,18 @@ public class FragmentRequestList extends Fragment {
 
 
                                   //  Log.d("des",obj.getString("description")) ;
+                                    if (MainActivity.postedOfferAgainstRequestList.size()>0){
+                                        for (int j=0;j<MainActivity.postedOfferAgainstRequestList.size();j++) {
 
-                                for (int j=0;j<MainActivity.postedOfferAgainstRequestList.size();j++){
+                                            if (!MainActivity.postedOfferAgainstRequestList.get(j).equals(request.getRequestId())) {
+                                                requestArrayList.add(request);
+                                            }
+                                          }
 
-                                    if(!MainActivity.postedOfferAgainstRequestList.get(j).equals(request.getRequestId())) {
-                                        requestArrayList.add(request);
+                                        }else {
+                                      requestArrayList.add(request) ;
+                                      }
                                     }
-
-
-
-                                }
-
-                                }
 
                                 Toast.makeText(getActivity(), "Data fetched", Toast.LENGTH_LONG).show();
 

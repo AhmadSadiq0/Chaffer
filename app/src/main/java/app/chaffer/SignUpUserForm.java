@@ -79,6 +79,13 @@ public class SignUpUserForm extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         if (view.getId()==submit.getId()){
 
+            if(firstNameText.getText().toString().matches("")||lastNameText.getText().toString().matches("")||textPhoneNumber.getText().toString().matches("")
+                    ||textCnic.getText().toString().matches("")){
+
+                Toast.makeText(this,"Please fill data in all fields",Toast.LENGTH_LONG).show();
+
+            }else {
+
             progressBar.setVisibility(View.VISIBLE);
 
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -171,7 +178,8 @@ public class SignUpUserForm extends Activity implements View.OnClickListener{
             // Adding request to request queue
             queue.add(jsonObjReq);
 
-        }
+            }
 
+        }
     }
 }
