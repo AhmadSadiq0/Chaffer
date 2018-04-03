@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText passwordText ;
     TextView createAccount ;
     public static String IP="http://192.168.0.103:3000" ;
-    private String loginUrl=IP+"/users/signin";
+    private String loginUrl=IP+"/users/signin" ;
     ProgressBar progressBar ;
     private String urlFireToken = LoginActivity.IP + "/users/frtoken";
 

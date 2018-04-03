@@ -59,6 +59,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_signup);
         prefs=this.getSharedPreferences("User", MODE_PRIVATE) ;
 
+
+        prefs=this.getSharedPreferences("User", MODE_PRIVATE) ;
         editor = prefs.edit();
 
 
@@ -135,6 +137,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     Toast.makeText(getApplicationContext(),"done",Toast.LENGTH_LONG).show();
 
 
+
+
+
+
                                     //putting user id in shared prefrences
                                     editor.putString("tk",object.getString("tk")) ;
 
@@ -142,11 +148,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                   sendRegistrationToServer(preferences.getString("fire_token",null));
 
 
-
-                                    //Starting main activity
+                                    //Starting other activity
                                     Intent intent=new Intent(SignupActivity.this,SignUpUserForm.class) ;
                                     startActivity(intent);
                                     finish();
+
 
                                 }
 

@@ -165,8 +165,9 @@ public class SignUpUserForm extends Activity implements View.OnClickListener {
             // Adding request to request queue
             queue.add(jsonObjReq);
 
-        }
+            }
 
+        }
     }
 
     public int validateData() {
