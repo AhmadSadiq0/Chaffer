@@ -21,6 +21,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
     FragmentTransaction transaction;
     private TextView viewPostedRequests ;
     private TextView viewPostedOffer ;
+    private TextView newOrder ;
 
 
 
@@ -41,7 +42,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
         btnViewOffer=(Button)view.findViewById(R.id.view_offer) ;
         viewPostedRequests=(TextView)view.findViewById(R.id.posted_request) ;
         viewPostedOffer=(TextView)view.findViewById(R.id.posted_offers) ;
+        newOrder=(TextView)view.findViewById(R.id.new_orders) ;
 
+
+        newOrder.setOnClickListener(this);
         viewPostedOffer.setOnClickListener(this);
         viewPostedRequests.setOnClickListener(this);
         btnPlaceOffer.setOnClickListener(this);
@@ -87,6 +91,11 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
             transaction.addToBackStack("home") ;
             transaction.commit() ;
 
+        }else if (view.getId()==newOrder.getId()){
+            FragmentOrderList fragmentOrderList=new FragmentOrderList() ;
+            transaction.replace(R.id.layout,fragmentOrderList) ;
+            transaction.addToBackStack("home") ;
+            transaction.commit() ;
         }
 
     }

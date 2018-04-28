@@ -39,13 +39,14 @@
 
     <TextView
         android:id="@+id/offer_details_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:background="@color/cardview_shadow_start_color"
         android:layout_below="@+id/btn_view_request_details"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:text="Offer details:" />
 

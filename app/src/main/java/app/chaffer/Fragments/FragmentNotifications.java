@@ -117,7 +117,7 @@ public class FragmentNotifications extends Fragment {
                                     JSONObject notifications=array.getJSONObject(i) ;
 
 
-                                    Log.d("response_NotificationList",notifications.getString("fkuser_id")) ;
+                                   // Log.d("response_NotificationList",notifications.getString("fkuser_id")) ;
 
                                     Notifications notification=new Notifications(notifications.getString("notif_id"),notifications.getString("description"),notifications.getString("fkuser_id"),
                                             notifications.getString("fkrel_id"),notifications.getString("fkrel_type"),notifications.getString("isRead") );

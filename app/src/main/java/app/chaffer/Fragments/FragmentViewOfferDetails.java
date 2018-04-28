@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import app.chaffer.MainActivity;
 import app.chaffer.R;
+import app.chaffer.dialog.DialogPayAndStartOrder;
 import app.chaffer.dialog.DialogPostedRequestDetailsFromOffer;
 
 /**
@@ -62,6 +63,7 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
 
 
 
+
         return view ;
     }
 
@@ -70,6 +72,9 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
         if (view.getId()==viewRequestDetails.getId()){
             DialogPostedRequestDetailsFromOffer dialog=new DialogPostedRequestDetailsFromOffer(getActivity()) ;
             dialog.show();
+        }else if(view.getId()==acceptOffer.getId()){
+            DialogPayAndStartOrder payAndStartOrder =new DialogPayAndStartOrder(getActivity()) ;
+            payAndStartOrder.show();
         }
 
 
