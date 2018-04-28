@@ -14,15 +14,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import app.chaffer.Fragments.FragmentHome;
 import app.chaffer.Fragments.FragmentMore;
 import app.chaffer.Fragments.FragmentNotifications;
+
+import static app.chaffer.LoginActivity.IP;
+import static app.chaffer.LoginActivity.token;
+import static app.chaffer.LoginActivity.userId;
 
 
 public class MainActivity extends FragmentActivity {
@@ -33,7 +51,13 @@ public class MainActivity extends FragmentActivity {
     public static ArrayList<String> requestPlacementData=new ArrayList<>() ;
     public static Request selectedOfferFromRequestFeed;
     public static Offer selectedOfferFromOffersList ;
+    public static DeliveryOrder selectedDeliveryOrderFromList ;
+    public static ReceivingOrder selectedReceivingOrderFromList ;
+
     public static ArrayList<String> postedOfferAgainstRequestList=new ArrayList<>() ;
+
+    public static ArrayList<DeliveryOrder> deliveryOrders=new ArrayList<>() ;
+    public static ArrayList<ReceivingOrder> receivingOrders=new ArrayList<>() ;
 
     FragmentManager fm =this.getSupportFragmentManager() ;
 
@@ -43,12 +67,26 @@ public class MainActivity extends FragmentActivity {
       ProgressBar progressBar;
       public static LatLng requestPickupLatLng ;
       public static LatLng requestDeliveryLatLng ;
+
       private boolean isLocationFetched=false ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance() ;
+        final DatabaseReference ref= firebaseDatabase.getReference().child(userId) ;
+        final Map<String,String> location=new HashMap<>() ;
+        location.put("lat","33.656320478941716") ;
+        location.put("lng","73.15705857869006") ;
+        ref.setValue(location) ;
+
+
 
 
 
@@ -71,6 +109,12 @@ public class MainActivity extends FragmentActivity {
 
                         lat = Double.parseDouble(intent.getExtras().get("lat").toString());
                         lng = Double.parseDouble(intent.getExtras().get("lng").toString());
+
+                        //setting current lat lng values in hashmap and pushing it to firebase
+                        location.put("lat",lat+"") ;
+                        location.put("lng",lng+"") ;
+                        //pushing values to firebase
+                        ref.setValue(location) ;
 
                         //fetching location at the start of application
                         if (!isLocationFetched) {
@@ -160,4 +204,15 @@ public class MainActivity extends FragmentActivity {
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
     }
+
+
+
+
+
+
+
+
+
+
+
 }

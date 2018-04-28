@@ -27,6 +27,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 /**
  * Created by Mac on 14/12/2017.
  */
@@ -36,13 +38,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText loginText ;
     EditText passwordText ;
     TextView createAccount ;
-    public static String IP="http://192.168.0.103:3000" ;
+    public static String IP="https://sheltered-hollows-55613.herokuapp.com" ;
     private String loginUrl=IP+"/users/signin" ;
     ProgressBar progressBar ;
     private String urlFireToken = LoginActivity.IP + "/users/frtoken";
 
     public static String token;
     public static String userId;
+
+
 
 
 
@@ -136,6 +140,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     sendRegistrationToServer(preferences.getString("fire_token",null));
 
 
+
+
+
                                     //Starting main activity
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
@@ -222,6 +229,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+
+
+
+
     private void sendRegistrationToServer(String token) {
 
         // Update Token in database
@@ -284,5 +295,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Adding request to request queue
         queue.add(jsonObjReq);
     }
+
+
 
 }

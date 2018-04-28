@@ -21,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
 
@@ -139,8 +141,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-
-
                                     //putting user id in shared prefrences
                                     editor.putString("tk",object.getString("tk")) ;
 
@@ -148,10 +148,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                   sendRegistrationToServer(preferences.getString("fire_token",null));
 
 
-                                    //Starting other activity
-                                    Intent intent=new Intent(SignupActivity.this,SignUpUserForm.class) ;
-                                    startActivity(intent);
-                                    finish();
+
+
+
 
 
                                 }
@@ -164,6 +163,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                             //Hiding progress bar
                             progressBar.setVisibility(View.GONE);
+                            //Starting other activity
+                            Intent intent=new Intent(SignupActivity.this,SignUpUserForm.class) ;
+                            startActivity(intent);
+                            finish();
+
 
                         }
                     }, new Response.ErrorListener() {

@@ -168,7 +168,7 @@ public class SignUpUserForm extends Activity implements View.OnClickListener {
             }
 
         }
-    }
+
 
     public int validateData() {
         if(firstNameText.getText().toString().equals("")){
