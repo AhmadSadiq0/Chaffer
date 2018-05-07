@@ -145,6 +145,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     editor.putString("tk",object.getString("tk")) ;
 
                                     editor.commit();
+
                                   sendRegistrationToServer(preferences.getString("fire_token",null));
 
 

@@ -41,18 +41,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import static app.chaffer.MainActivity.chatTag;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import app.chaffer.ChatActivity;
 import app.chaffer.MainActivity;
 import app.chaffer.R;
 import app.chaffer.dialog.DialogMarkOrderComplete;
@@ -78,6 +72,7 @@ public class FragmentViewReceivingOrderDetails extends Fragment implements OnMap
       public static String deliveryPersonLat =null;
       public static String deliverPersonLng=null ;
 
+      Button chat ;
       Button btnMarkOrderComplete ;
 
     BroadcastReceiver fragmentBroadcastReceiver ;
@@ -92,6 +87,10 @@ public class FragmentViewReceivingOrderDetails extends Fragment implements OnMap
         mapFragment.getMapAsync(this);
 
 
+        chatTag="receivingOrder" ;
+
+        chat=(Button)view.findViewById(R.id.chat) ;
+        chat.setOnClickListener(this);
         btnMarkOrderComplete=(Button)view.findViewById(R.id.btn_mark_order_complete) ;
         btnMarkOrderComplete.setOnClickListener(this);
 
@@ -283,6 +282,9 @@ public class FragmentViewReceivingOrderDetails extends Fragment implements OnMap
             DialogMarkOrderComplete markOrderComplete =new DialogMarkOrderComplete(getContext()) ;
             markOrderComplete.show();
 
+        }else if (view.getId()==chat.getId()){
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            startActivity(intent);
         }
 
     }

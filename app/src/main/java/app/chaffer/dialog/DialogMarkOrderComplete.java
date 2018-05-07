@@ -42,11 +42,11 @@ public class DialogMarkOrderComplete extends Dialog implements View.OnClickListe
     Button btnClose ;
     Button submit ;
     String url=IP+"/users/review" ;
-    String urlMarkOrder=IP+"/order/"+MainActivity.selectedReceivingOrderFromList.getOrderId() ;
+    //String urlMarkOrder=IP+"/order/"+MainActivity.selectedReceivingOrderFromList.getOrderId() ;
     ProgressBar progressBar ;
     EditText comments;
     RatingBar ratingBar ;
-    float ratings ;
+    int ratings ;
 
     RequestQueue queue ;
 
@@ -67,7 +67,7 @@ public class DialogMarkOrderComplete extends Dialog implements View.OnClickListe
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
 
-                ratings=v ;
+                ratings=(int)v ;
             }
         });
 
@@ -82,8 +82,7 @@ public class DialogMarkOrderComplete extends Dialog implements View.OnClickListe
 
 
 
-        //mark order complete
-        markedOrderComplete();
+
     }
 
     @Override
@@ -128,7 +127,7 @@ public class DialogMarkOrderComplete extends Dialog implements View.OnClickListe
                                     JSONObject object = new JSONObject(response.toString());
                                     if (object.getString("review").equals("done")) {
 
-                                        Toast.makeText(getContext(), "Ratings submitted!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getContext(), "Order has been marked as complete", Toast.LENGTH_LONG).show();
 
                                         //Disabling
                                         progressBar.setVisibility(View.GONE);
@@ -182,94 +181,6 @@ public class DialogMarkOrderComplete extends Dialog implements View.OnClickListe
                 Toast.makeText(getContext(), "Kindly write comment", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-
-
-
-    //Marked order complete
-
-    private void markedOrderComplete(){
-
-        //Displaying progress bar
-        progressBar.setVisibility(View.VISIBLE);
-
-        //Seding request
-        queue = Volley.newRequestQueue(getContext());
-
-
-        Map<String, String> postParam = new HashMap<String, String>();
-
-
-//                For testing purpose only
-        JSONObject jsonObject = new JSONObject(postParam);
-        Log.d("mark_order_complete", jsonObject.toString());
-
-
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT, urlMarkOrder
-                , new JSONObject(postParam),
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        Log.d("mark_order_complete", response.toString());
-
-                        try {
-                            JSONObject object = new JSONObject(response.toString());
-                            if (object.getString("done").equals("yes")) {
-
-                                Toast.makeText(getContext(), "Order marked complete", Toast.LENGTH_LONG).show();
-
-                                //Disabling
-                                progressBar.setVisibility(View.GONE);
-
-                                dismiss();
-
-
-                            }
-
-                        } catch (Exception e) {
-                            Toast.makeText(getContext(), "Sorry there is an error", Toast.LENGTH_LONG).show();
-
-                            //Disabling
-                            progressBar.setVisibility(View.GONE);
-
-                        }
-
-
-                    }
-                }, new Response.ErrorListener() {
-
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Error: " + error.getMessage());
-
-                //Disabling
-                progressBar.setVisibility(View.GONE);
-
-                //Toast
-                Toast.makeText(getContext(), "Error occurred!Please try again", Toast.LENGTH_LONG).show();
-
-
-            }
-        }) {
-
-            //This is for Headers If You Needed
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                //  params.put("Content-Type", "application/json; charset=UTF-8");
-                params.put("authorization", token);
-                return params;
-            }
-        };
-
-        jsonObjReq.setTag("json");
-        // Adding request to request queue
-        queue.add(jsonObjReq);
-
     }
 
 

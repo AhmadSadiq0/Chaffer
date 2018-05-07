@@ -5,6 +5,7 @@ package app.chaffer.Fragments;
  */
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,10 +39,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.chaffer.ChatActivity;
 import app.chaffer.MainActivity;
 import app.chaffer.R;
 import app.chaffer.dialog.DialogOrderDetails;
-
+import static app.chaffer.MainActivity.chatTag;
 
 /**
  * Created by Mac on 03/03/2018.
@@ -61,6 +63,8 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
     private ProgressBar progressBar ;
 
     private Button viewDetails ;
+    private Button chat ;
+
 
     @Nullable
     @Override
@@ -70,6 +74,9 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        chatTag="deliveryOrder" ;
+
+
 
         routeText=(TextView) view.findViewById(R.id.route) ;
         distanceText=(TextView) view.findViewById(R.id.distance) ;
@@ -77,9 +84,14 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         details_layout=(LinearLayout) view.findViewById(R.id.details_layout) ;
         progressBar=(ProgressBar) view.findViewById(R.id.progressBar) ;
 
+        chat=(Button)view.findViewById(R.id.chat) ;
+        chat.setOnClickListener(this);
         viewDetails=(Button) view.findViewById(R.id.btn_view_order_details) ;
         viewDetails.setVisibility(View.VISIBLE);
         viewDetails.setOnClickListener(this);
+
+        chat.setVisibility(View.VISIBLE);
+
 
         polylines = new ArrayList<>();
 
@@ -222,6 +234,9 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         if (view.getId()==viewDetails.getId()){
             DialogOrderDetails dialogOrderDetails=new DialogOrderDetails(getContext());
             dialogOrderDetails.show(); 
+        }else if (view.getId()==chat.getId()){
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            startActivity(intent);
         }
 
     }

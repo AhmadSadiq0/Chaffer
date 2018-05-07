@@ -54,6 +54,7 @@
     <EditText
         android:hint="Enter your comment"
         android:gravity="top|left"
+        android:inputType="textCapCharacters"
         android:padding="10dp"
         android:background="@android:color/transparent"
         android:id="@+id/eidtext_comment"

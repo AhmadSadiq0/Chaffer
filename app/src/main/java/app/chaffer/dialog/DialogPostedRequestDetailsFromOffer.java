@@ -71,11 +71,11 @@ public class DialogPostedRequestDetailsFromOffer extends Dialog implements View.
 
 
         description=(TextView) findViewById(R.id.text_description) ;
-        amount=(TextView)findViewById(R.id.text_amount) ;
+        //amount=(TextView)findViewById(R.id.text_amount) ;
         time=(TextView)findViewById(R.id.text_time) ;
         pickUplocationDes=(TextView)findViewById(R.id.pick_up_location_description) ;
         dropOffLocationDes=(TextView)findViewById(R.id.dropoff_up_location_description) ;
-        packageDescription=(TextView)findViewById(R.id.package_description) ;
+        //packageDescription=(TextView)findViewById(R.id.package_description) ;
 
 
 

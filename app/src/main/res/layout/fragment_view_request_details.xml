@@ -53,7 +53,7 @@
                 android:id="@+id/offer_description_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Offer description:"
+                android:text="Request description:"
                 android:textStyle="bold" />
 
 
@@ -65,7 +65,7 @@
                     android:id="@+id/offer_description_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="                  Offer description text here" />
+                    android:text="                  Request description text here" />
 
 
             </ScrollView>

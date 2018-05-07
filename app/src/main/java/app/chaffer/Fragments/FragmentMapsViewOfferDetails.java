@@ -162,7 +162,7 @@ public class FragmentMapsViewOfferDetails extends Fragment implements OnMapReady
 
     @Override
     public void onRoutingFailure(RouteException e) {
-        Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Sorry could not draw the route,Please try again",Toast.LENGTH_SHORT).show();
 
     }
 

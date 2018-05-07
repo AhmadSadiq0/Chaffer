@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
@@ -38,13 +39,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText loginText ;
     EditText passwordText ;
     TextView createAccount ;
-    public static String IP="https://sheltered-hollows-55613.herokuapp.com" ;
+    //public static String IP="http://192.168.0.103:3000" ;
+    public static String IP="https://quiet-mountain-18744.herokuapp.com";
     private String loginUrl=IP+"/users/signin" ;
     ProgressBar progressBar ;
     private String urlFireToken = LoginActivity.IP + "/users/frtoken";
 
     public static String token;
     public static String userId;
+    public static String userName ;
 
 
 
@@ -117,6 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 if (!object.getString("tk").equals("") && object.getString("info").equals("filled")) {
 
 
+                                    userName=object.getString("name") ;
                                     //getting user id
                                     userId=object.getString("id") ;
 

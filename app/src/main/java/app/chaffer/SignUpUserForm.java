@@ -2,6 +2,7 @@ package app.chaffer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static app.chaffer.LoginActivity.token;
+import static app.chaffer.LoginActivity.userName;
 
 /**
  * Created by Mac on 16/02/2018.
@@ -45,11 +47,13 @@ public class SignUpUserForm extends Activity implements View.OnClickListener {
     RadioButton male;
     RadioButton female;
     private String url = LoginActivity.IP + "/users/inforeg";
-
+    SharedPreferences preferences ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_form);
+
+        preferences=this.getSharedPreferences("User",MODE_PRIVATE) ;
 
 
         firstNameText = (EditText) findViewById(R.id.text_first_name);
@@ -112,6 +116,11 @@ public class SignUpUserForm extends Activity implements View.OnClickListener {
 
                                     Toast.makeText(getApplicationContext(), "User updated", Toast.LENGTH_LONG).show();
 
+                                    //setting user name
+                                    userName=firstNameText.getText().toString()+" "+lastNameText.getText().toString() ;
+
+
+                                    token=preferences.getString("tk",null) ;
 
                                     //Starting main activity
                                     Intent intent = new Intent(SignUpUserForm.this, MainActivity.class);
