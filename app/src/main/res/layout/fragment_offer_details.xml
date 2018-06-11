@@ -5,6 +5,12 @@
     android:padding="@dimen/standard_padding">
 
 
+    <Button
+        android:id="@+id/chat"
+        android:background="@mipmap/chat_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
@@ -164,26 +170,29 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:layout_weight="1"
             android:id="@+id/btn_accept_offer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="Accept offer"
             android:textColor="@color/white" />
 
-        <Button
-            android:id="@+id/chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_message_black_24dp"/>
+
+
 
         <Button
-            android:layout_weight="1"
+            android:id="@+id/btn_person_review_comments"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/person_info" />
+
+        <Button
             android:id="@+id/btn_view_request_details"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="View request details"
             android:textColor="@color/white" />

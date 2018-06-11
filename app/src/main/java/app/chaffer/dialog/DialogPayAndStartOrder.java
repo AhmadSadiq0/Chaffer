@@ -101,7 +101,7 @@ public class DialogPayAndStartOrder extends Dialog implements View.OnClickListen
     public void onClick(View view) {
 
         if (view.getId()==confirm.getId()){
-            if (!cardNum.getText().equals("") && cardNum.getText().equals(null) ) {
+            if (!cardNum.getText().equals("") && !cardNum.getText().equals(null) ) {
 
                 prepareRequest();
             }else {

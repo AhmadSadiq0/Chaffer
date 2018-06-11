@@ -54,6 +54,7 @@ public class MainActivity extends FragmentActivity {
     public static Offer selectedOfferFromOffersList ;
     public static DeliveryOrder selectedDeliveryOrderFromList ;
     public static ReceivingOrder selectedReceivingOrderFromList ;
+    public static ArrayList<RatingsAndComments> ratingsAndComments=new ArrayList<>() ;
 
     public static ArrayList<String> postedOfferAgainstRequestList=new ArrayList<>() ;
 
@@ -186,9 +187,9 @@ public class MainActivity extends FragmentActivity {
                             .replace(R.id.layout, fragmentInbox).commit();
 
                     return true;
-                case R.id.navigation_explore:
-                    //mTextMessage.setText("Explore");
-                    return true;
+//                case R.id.navigation_explore:
+//                    //mTextMessage.setText("Explore");
+//                    return true;
                 case R.id.navigation_notifications:
                    // mTextMessage.setText("Notification");
                     FragmentNotifications notifications = new FragmentNotifications();

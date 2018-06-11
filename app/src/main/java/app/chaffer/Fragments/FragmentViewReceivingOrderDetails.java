@@ -65,6 +65,10 @@ public class FragmentViewReceivingOrderDetails extends Fragment implements OnMap
     private List<Polyline> polylines;
     private static final int[] COLORS = new int[]{R.color.primary_dark, R.color.primary, R.color.primary_light, R.color.accent, R.color.primary_dark_material_light,R.color.cardview_dark_background};
 
+    LatLng pickup;
+    MarkerOptions pickupMarker;
+
+
     private  TextView routeText,distanceText,timeText ;
     private LinearLayout details_layout ;
     private ProgressBar progressBar ;
@@ -158,16 +162,29 @@ public class FragmentViewReceivingOrderDetails extends Fragment implements OnMap
             //Delivery lat long
             Double deliverylat = Double.parseDouble(MainActivity.selectedReceivingOrderFromList.getDesLat());
             Double deliverylon = Double.parseDouble(MainActivity.selectedReceivingOrderFromList.getDesLng());
+            Double pickUpLat=Double.parseDouble(MainActivity.selectedReceivingOrderFromList.getPickUpLat()) ;
+            Double pickUpLng=Double.parseDouble(MainActivity.selectedReceivingOrderFromList.getPickUpLng()) ;
+
+
 
             //    Delivery person lat and lng
             deliveryPerson = new LatLng(delivertPersonLat1, deliveryPersonLng1);
             deliveryPersonMarker = new MarkerOptions();
-            deliverPersonLocation= mMap.addMarker(deliveryPersonMarker.position(deliveryPerson).title("Delivery person"));
+        deliveryPersonMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        deliverPersonLocation= mMap.addMarker(deliveryPersonMarker.position(deliveryPerson).title("Delivery person"));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(delivertPersonLat1, deliveryPersonLng1), 15));
 
             //Delivery marker
 
-            delivery = new LatLng(deliverylat, deliverylon);
+            pickup= new LatLng(pickUpLat,pickUpLng);
+            pickupMarker=new MarkerOptions() ;
+            pickupMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            mMap.addMarker(pickupMarker.position(pickup).title("Pickup location" ));
+
+
+
+
+        delivery = new LatLng(deliverylat, deliverylon);
             Log.d("deliver", delivery.latitude + " " + delivery.longitude);
             deliveryMarker = new MarkerOptions();
             deliveryMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
@@ -181,7 +198,7 @@ public class FragmentViewReceivingOrderDetails extends Fragment implements OnMap
 
             //getting route
 
-              getRoutToMarker(deliveryPerson,delivery);
+              getRoutToMarker(deliveryPerson,pickup,delivery);
 
 
 
@@ -200,12 +217,12 @@ public class FragmentViewReceivingOrderDetails extends Fragment implements OnMap
 
     //method to draw route
 
-    private void getRoutToMarker(LatLng start,LatLng end)  {
+    private void getRoutToMarker(LatLng start,LatLng mid,LatLng end)  {
 
 
             Routing routing = new Routing.Builder().
                     travelMode(AbstractRouting.TravelMode.DRIVING).
-                    withListener(this).alternativeRoutes(false).waypoints(start, end).build();
+                    withListener(this).alternativeRoutes(false).waypoints(start,mid, end).build();
 
             routing.execute();
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +58,7 @@ public class FragmentMore extends Fragment implements View.OnClickListener{
     TextView email ;
     ImageView userImage ;
     TextView availableFunds ;
-    TextView ratings ;
+    RatingBar ratings ;
 
     Button btn_addPayement ;
     Button btn_deletePayement ;
@@ -87,7 +88,7 @@ public class FragmentMore extends Fragment implements View.OnClickListener{
         email=view.findViewById(R.id.text_email) ;
         userImage=view.findViewById(R.id.profile_image) ;
         availableFunds=(TextView)view.findViewById(R.id.available_funds) ;
-        ratings=(TextView)view.findViewById(R.id.average_rating) ;
+        ratings=(RatingBar) view.findViewById(R.id.average_rating) ;
 
         btn_addPayement=view.findViewById(R.id.btn_addPayment) ;
         btn_addPayement.setOnClickListener(this);
@@ -183,6 +184,8 @@ public class FragmentMore extends Fragment implements View.OnClickListener{
                         try {
                             //Cleaning the array
 
+                            JSONObject object=new JSONObject(response.toString()) ;
+
                             JSONArray array = new JSONArray(response.getString("userinfo"));
                             {
                                 JSONArray offersArray=array.getJSONArray(0) ;
@@ -200,9 +203,10 @@ public class FragmentMore extends Fragment implements View.OnClickListener{
                                 phoneNumber.setText(innerObject.getString("phone").toString());
                                 cnic.setText(innerObject.getString("cnic").toString());
                                 availableFunds.setText(innerObject.getString("available_funds")+"-/Rs");
-                                ratings.setText(innerObject.getString("rating")+"/5");
+                                //ratings.setText(array.getString("rating")+"/5");
 
                                 new DownloadImageTask(userImage).execute("https://scontent.fisb1-1.fna.fbcdn.net/v/t1.0-9/26219785_1305275912911579_859082525081003821_n.jpg?_nc_cat=0&oh=72f9098e18dd4a961c32630fa717b805&oe=5B2A6E46") ;
+                                ratings.setRating(Integer.parseInt(object.getString("rating")));
 
 
                             }

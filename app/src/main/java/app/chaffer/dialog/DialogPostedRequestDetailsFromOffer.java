@@ -84,7 +84,7 @@ public class DialogPostedRequestDetailsFromOffer extends Dialog implements View.
         time.setText(""+MainActivity.selectedOfferFromOffersList.getRequest().getTimeToDeliver());
         pickUplocationDes.setText(""+MainActivity.selectedOfferFromOffersList.getRequest().getPickUpLocationDescription());
         dropOffLocationDes.setText(""+MainActivity.selectedOfferFromOffersList.getRequest().getDrofOffLocationDescription());
-        packageDescription.setText(""+MainActivity.selectedOfferFromOffersList.getRequest().getPackageDesription());
+//        packageDescription.setText(""+MainActivity.selectedOfferFromOffersList.getRequest().getPackageDesription());
     }
 
 

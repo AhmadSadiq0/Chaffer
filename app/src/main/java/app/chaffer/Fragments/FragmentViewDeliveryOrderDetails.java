@@ -53,8 +53,12 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
     private GoogleMap mMap;
   //  LatLng deliveryPersonLatLng;
     LatLng delivery;
-   // MarkerOptions deliverPersonLocationMarker;
+    LatLng pickup;
+
+    // MarkerOptions deliverPersonLocationMarker;
     MarkerOptions deliveryMarker;
+    MarkerOptions pickupMarker;
+
     private List<Polyline> polylines;
     private static final int[] COLORS = new int[]{R.color.primary_dark, R.color.primary, R.color.primary_light, R.color.accent, R.color.primary_dark_material_light,R.color.cardview_dark_background};
 
@@ -124,6 +128,18 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         //Delivery lat long for an order
         Double deliverylat=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getDesLat()) ;
         Double deliverylon=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getDesLng()) ;
+        //Pickup
+        Double pickUpLat=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getPickUpLat()) ;
+        Double pickUpLng=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getPickUpLng()) ;
+
+
+
+        pickup= new LatLng(pickUpLat,pickUpLng);
+        pickupMarker=new MarkerOptions() ;
+        pickupMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        mMap.addMarker(pickupMarker.position(pickup).title("Pickup location" ));
+
+
 
         //Delivery marker
 
@@ -141,7 +157,7 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
 
         //getting route
         //Route between deliver and current location
-        getRoutToMarker(new LatLng(MainActivity.lat,MainActivity.lng),delivery);
+        getRoutToMarker(new LatLng(MainActivity.lat,MainActivity.lng),pickup,delivery);
 
 
 
@@ -154,12 +170,12 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
 
     //method to draw route
 
-    private void getRoutToMarker(LatLng start,LatLng end)  {
+    private void getRoutToMarker(LatLng start,LatLng mid,LatLng end)  {
 
 
         Routing routing = new Routing.Builder().
                 travelMode(AbstractRouting.TravelMode.DRIVING).
-                withListener(this).alternativeRoutes(false).waypoints(start, end).build();
+                withListener(this).alternativeRoutes(false).waypoints(start,mid, end).build();
 
         routing.execute();
 

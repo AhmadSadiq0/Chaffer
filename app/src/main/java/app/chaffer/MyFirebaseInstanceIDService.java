@@ -63,6 +63,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
             editor.putString("fire_token",refreshedToken) ;
             editor.commit() ;
 
+
         }
 
         // Update Token in database

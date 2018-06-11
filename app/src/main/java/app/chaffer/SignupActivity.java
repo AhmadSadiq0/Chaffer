@@ -28,6 +28,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static app.chaffer.LoginActivity.token;
 import static app.chaffer.LoginActivity.userId;
 
 
@@ -139,11 +141,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     Toast.makeText(getApplicationContext(),"done",Toast.LENGTH_LONG).show();
 
 
-
+                                    token=object.getString("tk");
 
                                     //putting user id in shared prefrences
                                     editor.putString("tk",object.getString("tk")) ;
-
                                     editor.commit();
 
                                   sendRegistrationToServer(preferences.getString("fire_token",null));

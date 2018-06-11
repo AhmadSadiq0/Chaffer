@@ -67,6 +67,7 @@ public class FragmentInbox extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
+
         prepareData();
 
 

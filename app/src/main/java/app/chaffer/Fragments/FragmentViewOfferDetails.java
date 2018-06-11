@@ -15,6 +15,8 @@ import app.chaffer.MainActivity;
 import app.chaffer.R;
 import app.chaffer.dialog.DialogPayAndStartOrder;
 import app.chaffer.dialog.DialogPostedRequestDetailsFromOffer;
+import app.chaffer.dialog.DialogViewRatings;
+
 import static app.chaffer.MainActivity.chatTag;
 
 /**
@@ -34,6 +36,7 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
 
     Button chat ;
 
+    Button personReviewAndComments ;
 
     @Nullable
     @Override
@@ -50,6 +53,9 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
 
         viewRequestDetails=view.findViewById(R.id.btn_view_request_details) ;
         acceptOffer=view.findViewById(R.id.btn_accept_offer) ;
+
+        personReviewAndComments=view.findViewById(R.id.btn_person_review_comments) ;
+        personReviewAndComments.setOnClickListener(this);
 
         viewRequestDetails.setOnClickListener(this);
         acceptOffer.setOnClickListener(this);
@@ -88,6 +94,9 @@ public class FragmentViewOfferDetails extends Fragment implements View.OnClickLi
         }else if (view.getId()==chat.getId()){
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             startActivity(intent);
+        }else if (view.getId()==personReviewAndComments.getId()){
+            DialogViewRatings dialogViewRatings =new DialogViewRatings(getActivity()) ;
+            dialogViewRatings.show();
         }
 
 
