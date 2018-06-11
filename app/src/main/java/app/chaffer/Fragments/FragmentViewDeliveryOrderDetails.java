@@ -5,6 +5,7 @@ package app.chaffer.Fragments;
  */
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,10 +39,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.chaffer.ChatActivity;
 import app.chaffer.MainActivity;
 import app.chaffer.R;
 import app.chaffer.dialog.DialogOrderDetails;
-
+import static app.chaffer.MainActivity.chatTag;
 
 /**
  * Created by Mac on 03/03/2018.
@@ -51,8 +53,12 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
     private GoogleMap mMap;
   //  LatLng deliveryPersonLatLng;
     LatLng delivery;
-   // MarkerOptions deliverPersonLocationMarker;
+    LatLng pickup;
+
+    // MarkerOptions deliverPersonLocationMarker;
     MarkerOptions deliveryMarker;
+    MarkerOptions pickupMarker;
+
     private List<Polyline> polylines;
     private static final int[] COLORS = new int[]{R.color.primary_dark, R.color.primary, R.color.primary_light, R.color.accent, R.color.primary_dark_material_light,R.color.cardview_dark_background};
 
@@ -61,6 +67,8 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
     private ProgressBar progressBar ;
 
     private Button viewDetails ;
+    private Button chat ;
+
 
     @Nullable
     @Override
@@ -70,6 +78,9 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        chatTag="deliveryOrder" ;
+
+
 
         routeText=(TextView) view.findViewById(R.id.route) ;
         distanceText=(TextView) view.findViewById(R.id.distance) ;
@@ -77,9 +88,14 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         details_layout=(LinearLayout) view.findViewById(R.id.details_layout) ;
         progressBar=(ProgressBar) view.findViewById(R.id.progressBar) ;
 
+        chat=(Button)view.findViewById(R.id.chat) ;
+        chat.setOnClickListener(this);
         viewDetails=(Button) view.findViewById(R.id.btn_view_order_details) ;
         viewDetails.setVisibility(View.VISIBLE);
         viewDetails.setOnClickListener(this);
+
+        chat.setVisibility(View.VISIBLE);
+
 
         polylines = new ArrayList<>();
 
@@ -112,6 +128,18 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         //Delivery lat long for an order
         Double deliverylat=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getDesLat()) ;
         Double deliverylon=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getDesLng()) ;
+        //Pickup
+        Double pickUpLat=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getPickUpLat()) ;
+        Double pickUpLng=Double.parseDouble(MainActivity.selectedDeliveryOrderFromList.getPickUpLng()) ;
+
+
+
+        pickup= new LatLng(pickUpLat,pickUpLng);
+        pickupMarker=new MarkerOptions() ;
+        pickupMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        mMap.addMarker(pickupMarker.position(pickup).title("Pickup location" ));
+
+
 
         //Delivery marker
 
@@ -129,7 +157,7 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
 
         //getting route
         //Route between deliver and current location
-        getRoutToMarker(new LatLng(MainActivity.lat,MainActivity.lng),delivery);
+        getRoutToMarker(new LatLng(MainActivity.lat,MainActivity.lng),pickup,delivery);
 
 
 
@@ -142,12 +170,12 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
 
     //method to draw route
 
-    private void getRoutToMarker(LatLng start,LatLng end)  {
+    private void getRoutToMarker(LatLng start,LatLng mid,LatLng end)  {
 
 
         Routing routing = new Routing.Builder().
                 travelMode(AbstractRouting.TravelMode.DRIVING).
-                withListener(this).alternativeRoutes(false).waypoints(start, end).build();
+                withListener(this).alternativeRoutes(false).waypoints(start,mid, end).build();
 
         routing.execute();
 
@@ -222,6 +250,9 @@ public class FragmentViewDeliveryOrderDetails extends Fragment implements OnMapR
         if (view.getId()==viewDetails.getId()){
             DialogOrderDetails dialogOrderDetails=new DialogOrderDetails(getContext());
             dialogOrderDetails.show(); 
+        }else if (view.getId()==chat.getId()){
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            startActivity(intent);
         }
 
     }

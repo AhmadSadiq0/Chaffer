@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:id="@+id/parent_layout"
     android:background="@color/cardview_shadow_end_color"
     android:padding="5dp">
 
@@ -37,16 +38,6 @@
                 android:layout_toRightOf="@+id/user_image_message"
                 android:text="User name here" />
 
-            <TextView
-                android:id="@+id/order_description_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/user_name_message"
-                android:layout_alignStart="@+id/user_name_message"
-                android:layout_below="@+id/user_name_message"
-                android:layout_marginTop="12dp"
-                android:maxLines="2"
-                android:text="Order description" />
 
 
         </RelativeLayout>

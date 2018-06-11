@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static app.chaffer.LoginActivity.token;
+import static app.chaffer.LoginActivity.userName;
 
 /**
  * Created by Mac on 16/02/2018.
@@ -112,6 +113,8 @@ public class SignUpUserForm extends Activity implements View.OnClickListener {
 
                                     Toast.makeText(getApplicationContext(), "User updated", Toast.LENGTH_LONG).show();
 
+                                    //setting user name
+                                    userName=firstNameText.getText().toString()+" "+lastNameText.getText().toString() ;
 
                                     //Starting main activity
                                     Intent intent = new Intent(SignUpUserForm.this, MainActivity.class);

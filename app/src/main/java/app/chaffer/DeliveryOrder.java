@@ -16,6 +16,26 @@ public class DeliveryOrder {
     private  String pickUpDes ;
     private  String desDes ;
     private  String pkgDes ;
+    private String pickUpLng ;
+    private String pickUpLat ;
+
+    public String getPickUpLng() {
+        return pickUpLng;
+    }
+
+    public void setPickUpLng(String pickUpLng) {
+        this.pickUpLng = pickUpLng;
+    }
+
+    public String getPickUpLat() {
+        return pickUpLat;
+    }
+
+    public void setPickUpLat(String pickUpLat) {
+        this.pickUpLat = pickUpLat;
+    }
+
+
 
     public String getPickUpDes() {
         return pickUpDes;
@@ -44,7 +64,7 @@ public class DeliveryOrder {
 
 
     public DeliveryOrder(String orderId, String description, String desLng, String desLat, String receiverId, String receiverName,
-                         String pickUpDes,String desDes,String pkgDes) {
+                         String pickUpDes,String desDes,String pkgDes,String pickUpLat,String pickUpLng) {
         this.orderId = orderId;
         this.description = description;
         this.desLng = desLng;
@@ -54,6 +74,8 @@ public class DeliveryOrder {
         this.pickUpDes=pickUpDes ;
         this.desDes=desDes ;
         this.pkgDes=pkgDes ;
+        this.pickUpLat=pickUpLat ;
+        this.pickUpLng=pickUpLng ;
     }
 
     public String getOrderId() {

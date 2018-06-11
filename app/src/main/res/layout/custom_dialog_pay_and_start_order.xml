@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    >
 
-
-
-
-    <RadioGroup
-
-        android:id="@+id/radio_group"
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:background="@mipmap/cardd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="150dp">
 
-        <RadioButton
-            android:id="@+id/radio_online_paymet"
-            android:textStyle="bold"
-            android:checked="true"
-            android:text="Online payment"
+
+
+        <TextView
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-        <com.simplify.android.sdk.CardEditor
-            android:id="@+id/card_editor"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:enabled="true"
-            />
+            android:layout_alignLeft="@+id/card_number"
+            android:layout_alignStart="@+id/card_number"
+            android:layout_marginTop="16dp"
+            android:text="User name"
+            android:textColor="#fff"
+            android:textStyle="bold" />
 
-        <RadioButton
-            android:id="@+id/radio_cash_on_deliver"
-            android:layout_below="@+id/card_editor"
-            android:text="Cash on delivery"
-            android:layout_marginTop="10dp"
+        <TextView
+            android:id="@+id/card_number"
+            android:layout_below="@+id/user_name"
+            android:text="Card number"
             android:textStyle="bold"
+            android:layout_marginLeft="200dp"
+            android:textColor="#fff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
 
+        <TextView
+            android:id="@+id/expiry_date"
+            android:layout_below="@+id/card_number"
+            android:text="Expiry date"
+            android:layout_marginLeft="200dp"
+            android:textColor="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    </RadioGroup>
-
-
+    </RelativeLayout>
 
     <Button
-        android:id="@+id/start_order"
-        android:textColor="@color/white"
-        android:text="Start order"
-        android:enabled="false"
-        android:layout_below="@+id/radio_group"
-        android:background="@color/colorPrimary"
+        android:id="@+id/confirm_btn"
+        android:layout_below="@+id/r1"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Confirm"
+        android:textColor="#fff" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:visibility="gone"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         android:theme="@style/progressBarGreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

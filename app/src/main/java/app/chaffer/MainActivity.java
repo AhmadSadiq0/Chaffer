@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.chaffer.Fragments.FragmentHome;
+import app.chaffer.Fragments.FragmentInbox;
 import app.chaffer.Fragments.FragmentMore;
 import app.chaffer.Fragments.FragmentNotifications;
 
@@ -53,11 +54,15 @@ public class MainActivity extends FragmentActivity {
     public static Offer selectedOfferFromOffersList ;
     public static DeliveryOrder selectedDeliveryOrderFromList ;
     public static ReceivingOrder selectedReceivingOrderFromList ;
+    public static ArrayList<RatingsAndComments> ratingsAndComments=new ArrayList<>() ;
 
     public static ArrayList<String> postedOfferAgainstRequestList=new ArrayList<>() ;
 
     public static ArrayList<DeliveryOrder> deliveryOrders=new ArrayList<>() ;
     public static ArrayList<ReceivingOrder> receivingOrders=new ArrayList<>() ;
+
+    public static ArrayList<Inbox>chatHistoryList=new ArrayList<>() ;
+    public static Inbox currentSelectChatFromInbox ;
 
     FragmentManager fm =this.getSupportFragmentManager() ;
 
@@ -68,7 +73,11 @@ public class MainActivity extends FragmentActivity {
       public static LatLng requestPickupLatLng ;
       public static LatLng requestDeliveryLatLng ;
 
-      private boolean isLocationFetched=false ;
+      public static String messageBoxName ;
+      public static String chatTag="" ;
+
+
+    private boolean isLocationFetched=false ;
 
 
 
@@ -76,7 +85,6 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance() ;
@@ -174,12 +182,14 @@ public class MainActivity extends FragmentActivity {
                     return true;
 
                 case R.id.navigation_inbox:
-
+                    FragmentInbox fragmentInbox=new FragmentInbox() ;
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.layout, fragmentInbox).commit();
 
                     return true;
-                case R.id.navigation_explore:
-                    //mTextMessage.setText("Explore");
-                    return true;
+//                case R.id.navigation_explore:
+//                    //mTextMessage.setText("Explore");
+//                    return true;
                 case R.id.navigation_notifications:
                    // mTextMessage.setText("Notification");
                     FragmentNotifications notifications = new FragmentNotifications();

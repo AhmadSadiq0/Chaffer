@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_shadow_end_color">
 
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
         android:layout_width="wrap_content"
@@ -13,6 +18,33 @@
         android:layout_marginTop="28dp"
         android:src="@mipmap/logo"
         />
+
+
+
+
+    <RatingBar
+        android:id="@+id/average_rating"
+        android:text="Ratings"
+        android:isIndicator="true"
+        android:theme="@style/progressBarGreen"
+        android:layout_below="@+id/cardView_userInfo"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/available_funds"
+        android:layout_alignParentRight="true"
+        android:text="Available funds"
+        android:padding="5dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
     <ProgressBar
@@ -27,7 +59,7 @@
         android:id="@+id/cardView_userInfo"
         android:layout_below="@+id/profile_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -128,18 +160,28 @@
 
 
             </LinearLayout>
-
-
-
-
-
-
-
-
-
-
         </ScrollView>
     </android.support.v7.widget.CardView>
 
+    <Button
+        android:layout_below="@+id/average_rating"
+        android:id="@+id/btn_addPayment"
+        android:layout_marginTop="10dp"
+        android:text="Add payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_deletePayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btn_addPayment"
+        android:layout_marginTop="5dp"
+        android:text="Delete payment" />
+    </RelativeLayout>
+
+
+</ScrollView>

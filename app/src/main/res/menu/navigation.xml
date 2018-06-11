@@ -11,10 +11,10 @@
         android:icon="@drawable/ic_inbox_black_24dp"
         android:title="Inbox" />
 
-    <item
-        android:id="@+id/navigation_explore"
-        android:icon="@drawable/ic_explore_black_24dp"
-        android:title="Explore" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_explore"-->
+        <!--android:icon="@drawable/ic_explore_black_24dp"-->
+        <!--android:title="Explore" />-->
 
 
     <item

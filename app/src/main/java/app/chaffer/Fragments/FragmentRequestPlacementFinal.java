@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class FragmentRequestPlacementFinal extends Fragment implements View.OnCl
     String timeText ;
     private Button placeOffer ;
     private String url=LoginActivity.IP+"/users/request" ;
-
+    ProgressBar progressBar ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +60,7 @@ public class FragmentRequestPlacementFinal extends Fragment implements View.OnCl
          pickUplocationDescription=(EditText)view.findViewById(R.id.editText_pickUP_location_description_text) ;
          dropOffLocationDescription=(EditText)view.findViewById(R.id.editText_dropOff_location_description_text) ;
          packageDescription=(EditText)view.findViewById(R.id.edit_text_package_description) ;
+         progressBar=(ProgressBar)view.findViewById(R.id.progressBar) ;
 
         placeOffer=(Button) view.findViewById(R.id.place_offer) ;
 
@@ -101,7 +103,7 @@ public class FragmentRequestPlacementFinal extends Fragment implements View.OnCl
 
 
 
-
+                progressBar.setVisibility(View.VISIBLE);
                 //Seding request
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
 
@@ -151,6 +153,7 @@ public class FragmentRequestPlacementFinal extends Fragment implements View.OnCl
                                         transaction.commit() ;
 
 
+                                        progressBar.setVisibility(View.GONE);
 
 
                                     }
@@ -162,6 +165,7 @@ public class FragmentRequestPlacementFinal extends Fragment implements View.OnCl
 
 
                                 //Hiding progress bar
+                                progressBar.setVisibility(View.GONE);
 
                             }
                         }, new Response.ErrorListener() {
@@ -177,6 +181,7 @@ public class FragmentRequestPlacementFinal extends Fragment implements View.OnCl
                         //Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
 
                         //Hiding progress bar
+                        progressBar.setVisibility(View.GONE);
 
 
                     }

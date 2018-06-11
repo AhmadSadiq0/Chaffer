@@ -1,208 +1,204 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/cardview_shadow_end_color"
+    android:padding="@dimen/standard_padding">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view_description"
-        android:layout_marginTop="@dimen/margin_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="#e7e6e6"
-        app:cardCornerRadius="@dimen/cardview_corner_radius">
-
-
-        <TextView
-            android:id="@+id/text_request_description"
-            android:layout_width="match_parent"
-            android:layout_height="200px"
-            android:layout_alignParentLeft="true"
-            android:gravity="top"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_below="@+id/text_description"
-            android:background="@android:color/transparent"
-            android:hint="Describe your request.*"
-            android:maxLines="5"
-            android:textColor="@color/colorAccent" />
-
-    </android.support.v7.widget.CardView>
 
     <Button
-        android:id="@+id/btn_view_request_details"
-        android:text="View request"
-        android:layout_below="@id/card_view_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/chat"
+        android:background="@mipmap/chat_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
     <TextView
-        android:id="@+id/offer_details_text"
-        android:layout_width="match_parent"
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:text="Status"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:textSize="18dp"
-        android:background="@color/cardview_shadow_start_color"
-        android:layout_below="@+id/btn_view_request_details"
-        android:layout_marginTop="12dp"
-        android:text="Offer details:" />
-
+        android:visibility="gone" />
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/offer_sender_image"
+        android:id="@+id/user_image"
         android:layout_width="wrap_content"
-        android:layout_height="120dp"
-        android:layout_below="@+id/offer_details_text"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="28dp"
         android:src="@mipmap/logo" />
+
 
     <TextView
         android:id="@+id/offer_sender_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/offer_sender_image"
+        android:layout_below="@+id/user_image"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:textStyle="bold"
-        android:text="Full Name" />
+        android:layout_marginTop="14dp"
+        android:text="User name here"
+        android:textStyle="bold" />
 
-    <ScrollView
-        android:layout_below="@id/offer_sender_name"
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_offer_description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="130dp"
+        android:layout_below="@+id/offer_sender_name"
+        android:layout_marginTop="@dimen/margin_top">
 
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_view_offer_description"
-            android:layout_below="@+id/close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top"
-            app:cardBackgroundColor="#e7e6e6"
-            app:cardCornerRadius="@dimen/cardview_corner_radius">
-
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_offer_description"
-                android:layout_width="match_parent"
-                android:layout_height="200px"
-                android:layout_alignParentLeft="true"
-                android:gravity="top"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:layout_below="@+id/text_description"
-                android:background="@android:color/transparent"
-                android:hint="Describe your Offer.*"
-                android:maxLines="5"
-                android:textColor="@color/colorAccent" />
-
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_view_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/card_view_offer_description"
-            android:layout_marginTop="@dimen/margin_top"
-            app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="@dimen/cardview_corner_radius">
-
-
-            <TextView
-                android:id="@+id/text_offer_time"
-                android:layout_width="match_parent"
+                android:id="@+id/offer_description_header"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/text_time"
-                android:background="@android:color/transparent"
-                android:hint="Time to deliver*"
-                android:maxLines="5"
-                android:textColor="@color/colorAccent" />
+                android:text="Offer description:"
+                android:textStyle="bold" />
 
 
-
-
-
-        </android.support.v7.widget.CardView>
-
-
-
-
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view_amount"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/card_view_time"
-                android:layout_marginTop="@dimen/margin_top"
-                app:cardBackgroundColor="@color/gray"
-                app:cardCornerRadius="@dimen/cardview_corner_radius">
+                android:layout_height="wrap_content">
 
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/text_offer_description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    >
-
-                    <TextView
-                        android:id="@+id/text_offer_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="9"
-                        android:background="@android:color/transparent"
-                        android:hint="Amount*"
-                        android:inputType="number"
-                        android:maxLines="5"
-                        android:textColor="@color/colorAccent" />
+                    android:layout_height="match_parent"
+                    android:text="                  Offer description text here" />
 
 
-
-                    <TextView
-                        android:id="@+id/amout_rs"
-                        android:layout_width="40dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="1"
-                        android:text="-/Rs" />
+            </ScrollView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
-
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-
-        </RelativeLayout>
-
-
-
-
-
-
-
-    </ScrollView>
-
-
-
-
-    <Button
-        android:id="@+id/btn_accept_offer"
-        android:text="Accept offer"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimary"
-        android:layout_alignParentBottom="true"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_offer_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="50dp"
+        android:layout_below="@+id/card_view_offer_description"
+        android:layout_marginTop="@dimen/margin_top">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/offer_time_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textStyle="bold" />
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_offer_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="                  Offer time text here" />
+
+
+            </ScrollView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+
+
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_pickuplocation_description"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/card_view_offer_time"
+        android:layout_marginTop="@dimen/margin_top">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/offer_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount:"
+                android:textStyle="bold" />
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_offer_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="                  Text offer amont" />
+
+
+            </ScrollView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_accept_offer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Accept offer"
+            android:textColor="@color/white" />
+
+
+
+
+        <Button
+            android:id="@+id/btn_person_review_comments"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/person_info" />
+
+        <Button
+            android:id="@+id/btn_view_request_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="View request details"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>

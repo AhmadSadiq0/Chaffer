@@ -136,15 +136,16 @@ public class FragmentOrderList extends Fragment implements View.OnClickListener 
                                 Log.d("response_delivery", offersArray.toString());
 
 
-                                for (int i=0;i<offersArray.length();i++) {
 
-                                    JSONObject dataObject1=offersArray.getJSONObject(0) ;
+                                for (int i=0;i<offersArray.length();i++) {
+                                    JSONObject dataObject1=offersArray.getJSONObject(i) ;
+
                                     JSONObject dataObject2=dataObject1.getJSONObject("row_to_json");
 
                                     DeliveryOrder deliveryOrder=new DeliveryOrder(dataObject2.getString("order_id"),dataObject2.getString("description"),
                                             dataObject2.getString("des_long"),dataObject2.getString("des_lat"),dataObject2.getString("fkuser_id"),
                                             dataObject2.getString("receiver_name"),dataObject2.getString("pickup_des"),dataObject2.getString("dropoff_des"),
-                                            dataObject2.getString("pkg_des")) ;
+                                            dataObject2.getString("pkg_des"),dataObject2.getString("loc_lat"),dataObject2.getString("loc_long")) ;
 
                                     deliveryOrders.add(deliveryOrder) ;
 
@@ -245,14 +246,14 @@ public class FragmentOrderList extends Fragment implements View.OnClickListener 
 
 
                             for (int i=0;i<offersArray.length();i++) {
+                                JSONObject dataObject1=offersArray.getJSONObject(i) ;
 
-                                JSONObject dataObject1=offersArray.getJSONObject(0) ;
                                 JSONObject dataObject2=dataObject1.getJSONObject("row_to_json");
 
                                 ReceivingOrder receivingOrder=new ReceivingOrder(dataObject2.getString("order_id"),dataObject2.getString("description"),
                                         dataObject2.getString("des_long"),dataObject2.getString("des_lat"),dataObject2.getString("fkuser_id"),
                                         dataObject2.getString("delivery_person_name"),dataObject2.getString("pickup_des"),dataObject2.getString("dropoff_des"),
-                                        dataObject2.getString("pkg_des")) ;
+                                        dataObject2.getString("pkg_des"),dataObject2.getString("loc_lat"),dataObject2.getString("loc_long")) ;
 
                                 receivingOrders.add(receivingOrder) ;
 

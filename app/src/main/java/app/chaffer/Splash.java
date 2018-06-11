@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import static app.chaffer.LoginActivity.token;
 import static app.chaffer.LoginActivity.userId;
+import static app.chaffer.LoginActivity.userName;
 
 /**
  * Created by Mac on 14/12/2017.
@@ -85,6 +86,7 @@ public class Splash extends Activity {
 
                                     //getting id
                                     userId=obj.getString("id") ;
+                                    userName=obj.getString("name") ;
 
                                     Toast.makeText(getApplicationContext(), "Welcome back!!", Toast.LENGTH_SHORT).show();
 
@@ -97,6 +99,8 @@ public class Splash extends Activity {
                                     //getting id
 
                                     userId=obj.getString("id") ;
+                                    userName=obj.getString("name") ;
+
 
                                     //Changing activity
                                     Intent mainIntent = new Intent(Splash.this, SignUpUserForm.class);

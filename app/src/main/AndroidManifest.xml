@@ -30,6 +30,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".SignUpUserForm"/>
+        <activity android:name=".ChatActivity"/>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
